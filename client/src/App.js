@@ -40,13 +40,11 @@ function App() {
     }
 };
 
-console.log('user in app.js:', user);
-
   return (
     <div className="app-container">
       <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout user={user}/>}>
             <Route index element={<Home />} />
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />
@@ -55,7 +53,7 @@ console.log('user in app.js:', user);
             <Route path="cart" element={<Cart />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="product-details" element={<ProductDetails />} />
-            <Route path="login" element={<Login login={login}/>} />
+            <Route path="login" element={<Login login={login} user={user}/>} />
             <Route path="user-profile" element={<UserProfile user={user}/>} />
           </Route>
       </Routes>

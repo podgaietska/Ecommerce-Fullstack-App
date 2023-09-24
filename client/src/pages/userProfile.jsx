@@ -1,13 +1,10 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
-import Login from "./Login";
 
 function UserProfile({user}) {
     const [userInfo, setUserInfo] = useState();
-
-    console.log('user in UserProfile: ', user);
+    const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
 
     useEffect(() => {
         try{
@@ -27,7 +24,6 @@ function UserProfile({user}) {
                 setUserInfo(data);
             }
 
-            console.log('user in UserProfile api call: ', user);
             if(user){
                 fetchUserInfo();
             }
@@ -37,13 +33,9 @@ function UserProfile({user}) {
         } 
     }, [user]);
 
-    useEffect(() =>{
-        console.log('userInfo: ', userInfo);
-    }, [userInfo]);
-
     return ( 
         <>
-        {userInfo ?
+        {(userInfo) ?
         (<div>
             <div className="page-header">
                 <div>

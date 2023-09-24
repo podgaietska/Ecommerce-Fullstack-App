@@ -1,11 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {BiRightArrowAlt, BiLeftArrowAlt} from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-function Login({login}){
+function Login({login, user}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -65,31 +65,6 @@ function Login({login}){
             console.log(error);
         }
     };
-
-    // const login = (email, password) => {
-    //     try{
-    //         const fetchLogin = async () => {
-    //             const res = await fetch('api/users/login', {
-    //                 method: 'POST',
-    //                 headers: {'Content-Type': 'application/json'},
-    //                 body: JSON.stringify({
-    //                     email: email,
-    //                     password: password
-    //                 })
-    //             });
-    //             if(!res.ok){
-    //                 throw new Error(`An error occured: ${res.status}`);
-    //             }
-    //             const data = await res.json();
-    //             localStorage.setItem('user', JSON.stringify(data));
-    //         }
-    //         fetchLogin();
-    //     }catch (error){
-    //         console.log(error);
-    //     } finally{
-    //         navigate('/user-profile');
-    //     }
-    // };
 
     return (
     <div>

@@ -1,13 +1,18 @@
 import React from "react";
 import {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function ProfileDropdown() {
     const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
+    let location = useLocation();
+
     const handleLogOut = () => {
         if(localStorage.user){
             localStorage.removeItem('user');
             window.location.reload();
+            if (location.pathname === '/user-profile'){
+                window.location.href = '/login';
+            }
         };   
     };
 
