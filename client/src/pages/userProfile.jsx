@@ -27,6 +27,7 @@ function UserProfile({user}) {
                 setUserInfo(data);
             }
 
+            console.log('user in UserProfile api call: ', user);
             if(user){
                 fetchUserInfo();
             }
@@ -36,9 +37,13 @@ function UserProfile({user}) {
         } 
     }, [user]);
 
+    useEffect(() =>{
+        console.log('userInfo: ', userInfo);
+    }, [userInfo]);
+
     return ( 
         <>
-        {user ?
+        {userInfo ?
         (<div>
             <div className="page-header">
                 <div>
@@ -69,8 +74,7 @@ function UserProfile({user}) {
             </div>
             <Footer />
         </div>)
-
-        : (<div>User doesn't exist</div>)}
+        : (<div></div>)}
         </>
     );
 }
