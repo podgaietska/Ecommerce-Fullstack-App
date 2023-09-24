@@ -40,6 +40,39 @@ function App() {
     }
 };
 
+const register = (firstName, lastName, email, password, phone, street, apartment, postal, city, country) => {
+  try{
+      const fetchRegister = async () => {
+          console.log('registring');
+          const res = await fetch('api/users/register', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                  firstName: firstName,
+                  lastName: lastName,
+                  email: email,
+                  password: password,
+                  phone: phone,
+                  street: street,
+                  apartment: apartment,
+                  zip: postal,
+                  city: city,
+                  country: country
+              })
+          });
+          if(!res.ok){
+              throw new Error(`An error occured: ${res.status}`);
+          }
+          const data = await res.json();
+          setUser(data);
+          localStorage.setItem('user', JSON.stringify(data));
+      }
+      fetchRegister();
+  }catch (error){
+      console.log(error);
+  }
+};
+
   return (
     <div className="app-container">
       <BrowserRouter>
@@ -53,7 +86,7 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="product-details" element={<ProductDetails />} />
-            <Route path="login" element={<Login login={login} user={user}/>} />
+            <Route path="login" element={<Login login={login} user={user} register={register}/>} />
             <Route path="user-profile" element={<UserProfile user={user}/>} />
           </Route>
       </Routes>

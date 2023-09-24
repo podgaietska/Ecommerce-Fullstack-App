@@ -104,7 +104,7 @@ router.post('/register', asyncHandler(async(req, res) => {
         res.status(400).send('The user cannot be created')
     }
     
-    res.status(201).json({user, token: token});
+    res.status(201).json({id: user.id, token: token});
 }));
 
 router.get('/get/count', asyncHandler(async(req, res) => {

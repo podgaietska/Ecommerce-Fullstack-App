@@ -21,6 +21,7 @@ function UserProfile({user}) {
                     throw new Error(`An error occured: ${res.status}`);
                 }
                 const data = await res.json();
+                console.log(data);
                 setUserInfo(data);
             }
 
@@ -32,6 +33,8 @@ function UserProfile({user}) {
             console.log(error);
         } 
     }, [user]);
+
+    console.log(user);
 
     return ( 
         <>
