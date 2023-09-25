@@ -7,13 +7,16 @@ function ProfileDropdown() {
     let location = useLocation();
 
     const handleLogOut = () => {
-        if(localStorage.user){
-            localStorage.removeItem('user');
-            window.location.reload();
-            if (location.pathname === '/user-profile'){
-                window.location.href = '/login';
-            }
-        };   
+        const answer = window.confirm('Are you sure you want to log out?');
+        if(answer){
+            if(localStorage.user){
+                localStorage.removeItem('user');
+                window.location.reload();
+                if (location.pathname === '/user-profile'){
+                    window.location.href = '/login';
+                }
+            }; 
+        }  
     };
 
     return (

@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import {BiRightArrowAlt, BiLeftArrowAlt} from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-function Login({login, user, register}){
+function Login({login, register}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');

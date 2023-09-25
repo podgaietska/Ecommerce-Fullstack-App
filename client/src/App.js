@@ -15,6 +15,8 @@ import {useState, useEffect} from 'react';
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
+  const [cart, setCart] = useState(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
+  const [wishlist, setWishlist] = useState(localStorage.getItem('wishlist') ? JSON.parse(localStorage.getItem('wishlist')) : []);
 
   const login = (email, password) => {
     try{
@@ -73,6 +75,10 @@ const register = (firstName, lastName, email, password, phone, street, apartment
   }
 };
 
+  // const addToCart = (product) => {
+
+  // } 
+
   return (
     <div className="app-container">
       <BrowserRouter>
@@ -86,7 +92,7 @@ const register = (firstName, lastName, email, password, phone, street, apartment
             <Route path="cart" element={<Cart />} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="product-details" element={<ProductDetails />} />
-            <Route path="login" element={<Login login={login} user={user} register={register}/>} />
+            <Route path="login" element={<Login login={login} register={register}/>} />
             <Route path="user-profile" element={<UserProfile user={user}/>} />
           </Route>
       </Routes>
