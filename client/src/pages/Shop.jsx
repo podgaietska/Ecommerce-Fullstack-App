@@ -5,14 +5,14 @@ import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import {useState} from "react";
 
-function Shop() {
+function Shop({allProducts, addToCart, cart, removeFromCart}) {
     const [category, setCategory] = useState('all-products');
 
     return (
     <div>
         <div className="section all-products">
         <div className="top">
-            {category != "all-products" ? (<h1>{category.toUpperCase()}</h1>) : (<h1>ALL PRODUCTS</h1>)}
+            {category !== "all-products" ? (<h1>{category.toUpperCase()}</h1>) : (<h1>ALL PRODUCTS</h1>)}
             <form>
                 <select defaultValue={'all-products'} onChange={(e) => {setCategory(e.target.value)}}>
                     <option value="all-products">All Products</option>
@@ -25,7 +25,7 @@ function Shop() {
                 <span><i className="bx bx-chevron-down"></i></span>
             </form>
         </div>
-            <ProductList category={category}/>
+            <ProductList category={category} allProducts={allProducts} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart}/>
     </div>
     <div className="pagination">
         <div className="container">

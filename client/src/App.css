@@ -820,6 +820,11 @@ li{
   transition-delay: 0.3s;
 }
 
+.product-item .icons .active{
+  background-color: var(--grey);
+  color: white;
+}
+
 .product-item:hover .icons li{
   visibility: visible;
   opacity: 1;
@@ -1149,7 +1154,16 @@ li{
   width: 100px;
 }
 
+.cart-tr img{
+  width: 100px;
+}
+
 .cart table td:nth-child(6){
+  width: 100px;
+  text-align: center;
+}
+
+.cart-tr td:nth-child(6){
   width: 100px;
   text-align: center;
 }
@@ -1159,7 +1173,17 @@ li{
   text-align: center;
 }
 
+.cart-tr td:nth-child(1){
+  width: 150px;
+  text-align: center;
+}
+
 .cart table td:nth-child(2){
+  width: 250px;
+  text-align: center;
+}
+
+.cart-tr td:nth-child(2){
   width: 250px;
   text-align: center;
 }
@@ -1171,7 +1195,24 @@ li{
   text-align: center;
 }
 
+.cart-tr td:nth-child(3),
+.cart-tr td:nth-child(4),
+.cart-tr td:nth-child(5){
+  width: 150px;
+  text-align: center;
+}
+
+.cart-tr td:nth-child(5){
+  cursor: pointer;
+  font-size: 1rem;
+}
+
 .cart table td:nth-child(4) input{
+  width: 70px;
+  padding: 10px 5px 10px 15px;
+}
+
+.cart-tr td:nth-child(4) input{
   width: 70px;
   padding: 10px 5px 10px 15px;
 }
@@ -1191,6 +1232,12 @@ li{
 
 
 .cart table tbody tr td{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e9e1;
+}
+
+.cart-tr td{
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #e2e9e1;

@@ -17,6 +17,30 @@ function App() {
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
   const [cart, setCart] = useState(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
   const [wishlist, setWishlist] = useState(localStorage.getItem('wishlist') ? JSON.parse(localStorage.getItem('wishlist')) : []);
+  const [allProducts, setallProducts] = useState([]);
+
+  useEffect(() => {
+    try {
+      const fetchProducts = async () => {
+        const res = await fetch('api/products', {
+          method: 'GET',
+          header: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!res.ok){
+          throw new Error(`An error occured: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setallProducts(data);
+      };
+
+      fetchProducts();
+    }catch (error){
+      console.log(error);
+    } 
+  }, []);
 
   const login = (email, password) => {
     try{
@@ -75,9 +99,23 @@ const register = (firstName, lastName, email, password, phone, street, apartment
   }
 };
 
-  // const addToCart = (product) => {
+const addToCart = (product) => {
+  const inCart = cart.find((item) => item._id === product._id);
+  if(!inCart){
+    setCart([...cart, product]);
+    localStorage.setItem('cart', JSON.stringify([...cart, product]));
+  }
+};
 
-  // } 
+const removeFromCart = (product) => {
+  const answer = window.confirm('Are you sure you want to remove this item from your cart?');
+  if(answer){
+    setCart(cart.filter((item) => item._id !== product._id));
+    localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item._id !== product._id)));
+  }
+}
+
+console.log('cart', cart);
 
   return (
     <div className="app-container">
@@ -88,8 +126,8 @@ const register = (firstName, lastName, email, password, phone, street, apartment
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />
             <Route path="blog" element={<Blog />} />
-            <Route path="shop" element={<Shop />} />
-            <Route path="cart" element={<Cart />} />
+            <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart}/>} />
+            <Route path="cart" element={<Cart cart={cart} removeFromCart={removeFromCart}/>} />
             <Route path="wishlist" element={<Wishlist />} />
             <Route path="product-details" element={<ProductDetails />} />
             <Route path="login" element={<Login login={login} register={register}/>} />
