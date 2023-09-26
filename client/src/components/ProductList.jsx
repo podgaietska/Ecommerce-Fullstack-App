@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Product from "./Product";
 
-function ProductList({category, allProducts, addToCart, cart, removeFromCart, productExistsInCart}) {
+function ProductList({category, allProducts, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ function ProductList({category, allProducts, addToCart, cart, removeFromCart, pr
     return (
         <div className="product-center container">
             {filteredProducts.map((product) => (
-                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart}/>
+                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>
             ))}
         </div>
     )

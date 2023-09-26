@@ -1,15 +1,27 @@
 import React, {useState, useEffect} from "react";
 import { BiSearch, BiHeart, BiCart, BiRightArrowAlt } from "react-icons/bi";
-import {Link, createHashRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-function Product({product, addToCart, removeFromCart, productExistsInCart}) {
+function Product({product, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     
     const handleProductInCart = () => {
         if (productExistsInCart(product)){
             removeFromCart(product);
         }
         else{
+            if (productExistsInWishlist(product)){
+                window.alert("Product added to cart!");
+            }
             addToCart(product);
+        }        
+    };
+
+    const handleProductInWishlist = () => {
+        if (productExistsInWishlist(product)){
+            removeFromWishlist(product);
+        }
+        else{
+            addToWishlist(product);
         }        
     };
 
@@ -28,9 +40,9 @@ function Product({product, addToCart, removeFromCart, productExistsInCart}) {
                     <p>${product.price}</p>
                 </div>
                 <ul className="icons">
-                    <li><BiHeart /></li>
+                    <li className={productExistsInWishlist(product) ? "active" : ""} onClick={handleProductInWishlist}><BiHeart /></li>
                     <li><Link to={"/product-details"} state={{product: product}}><BiSearch /></Link></li>
-                    <li className={productExistsInCart(product) ? "active" : ""}><BiCart onClick={handleProductInCart}/></li>
+                    <li className={productExistsInCart(product) ? "active" : ""} onClick={handleProductInCart}><BiCart /></li>
                 </ul>
         </div>
     );

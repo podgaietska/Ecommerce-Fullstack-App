@@ -44,7 +44,6 @@ function Navbar({user}){
                 <ul className = "nav-list d-flex">
                     <li className="nav-item"><Link to="/">HOME</Link></li>
                     <li className="nav-item"><Link to="/shop">SHOP</Link></li>
-                    <li className="nav-item"><Link to="/about">ABOUT</Link></li>
                     <li className="nav-item"><Link to="/blog">BLOG</Link></li>
                     <li className="nav-item"><Link to="/contact">CONTACT</Link></li>
                 </ul>
