@@ -151,14 +151,11 @@ const productExistsInWishlist = (product) => {
         }
 }
 
-console.log('cart', cart);
-console.log('wishlist', wishlist);
-
   return (
     <div className="app-container">
       <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Layout user={user}/>}>
+          <Route path="/" element={<Layout user={user} cart={cart} wishlist={wishlist}/>}>
             <Route index element={<Home />} />
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />
