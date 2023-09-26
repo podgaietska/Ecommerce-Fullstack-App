@@ -1,12 +1,48 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import { BiRightArrowAlt } from "react-icons/bi";
-import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     const [category, setCategory] = useState('all-products');
+    const [pages, setPages] = useState([]);
+    const [pageNum, setPageNum] = useState(0);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [productsOnPage, setProductsOnPage] = useState([]);
+
+    useEffect(() => {
+        if(category === 'all-products'){
+            setFilteredProducts(allProducts);
+        }
+        else{
+            const filtered = allProducts.filter( (product) => product.category.name.toLowerCase() === category);
+            setFilteredProducts(filtered);
+        }
+    }, [category]);
+
+    useEffect(() => {
+        if (filteredProducts.length === 0)
+            if (allProducts.length > 0){
+                setFilteredProducts(allProducts);
+            }
+    }, [allProducts]);
+
+    useEffect(() => {
+        if (filteredProducts.length > 0) {
+            setPages(splitIntoPages(filteredProducts));
+        }
+    }, [filteredProducts]);
+
+    useEffect(() => {
+        setProductsOnPage(pages[pageNum]);
+    }, [pages, pageNum]);
+
+    const splitIntoPages = (products) => {
+        let productsOnPage = [];
+            for (let i = 0; i < products.length; i += 8) {
+                productsOnPage.push(products.slice(i, i + 8));
+            }
+        return productsOnPage;
+    };
 
     return (
     <div>
@@ -25,18 +61,16 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
                 <span><i className="bx bx-chevron-down"></i></span>
             </form>
         </div>
-        <ProductList category={category} allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>
+        {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>
+}
     </div>
-    <div className="pagination">
-        <div className="container">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span><BiRightArrowAlt /></span>
+        <div className="pagination">
+            <div className="container">
+                {pages.map((page, index) => (
+                    <span onClick={() => {setPageNum(index)}}>{index + 1}</span>
+                ))}
+            </div>
         </div>
-    </div>
-    <Footer />
     </div>);
     }
 

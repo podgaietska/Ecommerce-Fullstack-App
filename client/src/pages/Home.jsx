@@ -2,9 +2,6 @@ import React from "react";
 import '../slider.scss';
 import Glide from "@glidejs/glide"
 import { useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import ProfileDropdown from "../components/ProfileDropdown";
 
 function Home() {
     const sliderConfig = {
@@ -184,8 +181,7 @@ function Home() {
             </div>
         </div>
     </div>
-    <Footer />
-        </div>
+    </div>
     );
     }
 

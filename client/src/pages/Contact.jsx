@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import { BiMap, BiEnvelope, BiPhone, BiTime } from "react-icons/bi";
 
 function Contact() {

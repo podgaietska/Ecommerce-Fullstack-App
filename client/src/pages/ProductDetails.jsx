@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import {BiHeart, BiCart, BiSearch} from "react-icons/bi";
 import {useLocation} from "react-router-dom";
 import { useEffect } from "react";

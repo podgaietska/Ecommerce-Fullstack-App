@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
 
 function UserProfile({user}) {
@@ -67,7 +66,6 @@ function UserProfile({user}) {
                 </div>
             
             </div>
-            <Footer />
         </div>)
         : (<div></div>)}
         </>
