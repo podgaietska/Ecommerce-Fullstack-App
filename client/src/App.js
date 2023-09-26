@@ -99,7 +99,7 @@ const register = (firstName, lastName, email, password, phone, street, apartment
   }
 };
 
-const addToCart = (product) => {
+const addToCart = async (product) => {
   const inCart = cart.find((item) => item._id === product._id);
   if(!inCart){
     setCart([...cart, product]);
@@ -107,12 +107,22 @@ const addToCart = (product) => {
   }
 };
 
-const removeFromCart = (product) => {
+const removeFromCart = async (product) => {
   const answer = window.confirm('Are you sure you want to remove this item from your cart?');
   if(answer){
     setCart(cart.filter((item) => item._id !== product._id));
     localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item._id !== product._id)));
   }
+}
+
+const productExistsInCart = (product) => {
+  const productInCart = cart.find((productInCart) => productInCart._id === product._id);
+        if (productInCart) {
+            return true;
+        }
+        else{
+            return false;
+        }
 }
 
 console.log('cart', cart);
@@ -126,10 +136,10 @@ console.log('cart', cart);
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />
             <Route path="blog" element={<Blog />} />
-            <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart}/>} />
+            <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart}/>} />
             <Route path="cart" element={<Cart cart={cart} removeFromCart={removeFromCart}/>} />
             <Route path="wishlist" element={<Wishlist />} />
-            <Route path="product-details" element={<ProductDetails />} />
+            <Route path="product-details" element={<ProductDetails addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} allProducts={allProducts}/>} />
             <Route path="login" element={<Login login={login} register={register}/>} />
             <Route path="user-profile" element={<UserProfile user={user}/>} />
           </Route>

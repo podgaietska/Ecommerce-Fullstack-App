@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import {useState} from "react";
 
-function Shop({allProducts, addToCart, cart, removeFromCart}) {
+function Shop({allProducts, addToCart, cart, removeFromCart, productExistsInCart}) {
     const [category, setCategory] = useState('all-products');
 
     return (
@@ -25,7 +25,7 @@ function Shop({allProducts, addToCart, cart, removeFromCart}) {
                 <span><i className="bx bx-chevron-down"></i></span>
             </form>
         </div>
-            <ProductList category={category} allProducts={allProducts} addToCart={addToCart} cart={cart} removeFromCart={removeFromCart}/>
+            <ProductList category={category} allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart}/>
     </div>
     <div className="pagination">
         <div className="container">

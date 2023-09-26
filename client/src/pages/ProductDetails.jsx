@@ -4,23 +4,28 @@ import Footer from "../components/Footer";
 import {BiHeart, BiCart, BiSearch} from "react-icons/bi";
 import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
+import {BiLeftArrowAlt} from "react-icons/bi";
+import ProductList from "../components/ProductList";
+import Product from "../components/Product";
 
-function ProductDetails() {
+function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts}) {
     const {state} = useLocation();
     const product = state.product;
-    console.log(product);
 
+    const handleProductInCart = () => {
+        if (productExistsInCart(product)){
+            removeFromCart(product);
+        }
+        else{
+            addToCart(product);
+        }        
+    };
+
+    const relatedProducts = allProducts.filter(relatedProduct => relatedProduct._id !== product._id);
+    const selectedRelatedProducts = relatedProducts.slice(0, 4);
+
+    console.log(selectedRelatedProducts);
     return (<div> 
-        <div className="product-details-nav">
-        <div className="directory">
-            <a href="shop.html"><i className="bx bx-left-arrow-alt"></i></a>
-            <a href="#">ALL</a>
-            /
-            <a href="#">Coats and jackets</a>
-            /
-            <a href="#">Bomber Jacket</a>
-        </div>
-    </div>
     <div className="product-detail">
         <div className="details container">
             <div className="left image-container">
@@ -29,7 +34,7 @@ function ProductDetails() {
                 </div>
             </div>
             <div className="right">
-                <span>NORTH FACE</span>
+                <span>{product.brand.toUpperCase()}</span>
                 <h1>{product.name}</h1>
                 <div className="price">${product.price}</div>
                 <form>
@@ -46,10 +51,10 @@ function ProductDetails() {
                         <span><i className="bx bx-chevron-down"></i></span>
                     </div>
                 </form>
-                <form className="action-btns">
-                    <a href="" className="addCart"><BiCart /></a>
-                    <a href="" className="addCart"><BiHeart /></a>
-                </form>
+                <ul className="action-btns">
+                    <li className={productExistsInCart(product) ? "active" : ""} onClick={handleProductInCart}><BiCart /></li>
+                    <li className="addCart"><BiHeart /></li>
+                </ul>
                 <h3>Product Decription</h3>
                 <p>{product.description}</p>
             </div>
@@ -61,84 +66,9 @@ function ProductDetails() {
             <p>Check out similar styles</p>
         </div>
         <div className="product-center">
-            <div className="product-item">
-                <div className="overlay">
-                    <a href="productDetails.htlm" className="product-thumb">
-                        <img src="product1.jpg" alt="" />
-                    </a>
-                </div>
-                <div className="product-info">
-                    <span>MEN'S CLOTHES</span>
-                    <a href="productDetails.html">
-                        Undercover Bomber Jacket
-                    </a>
-                    <p>$1200</p>
-                </div>
-                <ul className="icons">
-                    <li><BiHeart /></li>
-                    <li><BiSearch /></li>
-                    <li><BiCart /></li>
-                </ul>
-            </div>
-            <div className="product-item">
-                <div className="overlay">
-                    <a href="productDetails.htlm" className="product-thumb">
-                        <img src="product2.jpg" alt="" />
-                    </a>
-                    <span className="discount">50%</span>
-                </div>
-                <div className="product-info">
-                    <span>MEN'S CLOTHES</span>
-                    <a href="productDetails.html">
-                        Palace Vintage Jacket
-                    </a>
-                    <h4>$1500</h4>
-                </div>
-                <ul className="icons">
-                    <li><BiHeart /></li>
-                    <li><BiSearch /></li>
-                    <li><BiCart /></li>
-                </ul>
-            </div>
-            <div className="product-item">
-                <div className="overlay">
-                    <a href="productDetails.htlm" className="product-thumb">
-                        <img src="product3.jpg" alt="" />
-                    </a>
-                </div>
-                <div className="product-info">
-                    <span>MEN'S CLOTHES</span>
-                    <a href="productDetails.html">
-                        Represent Hoodie
-                    </a>
-                    <h4>$350</h4>
-                </div>
-                <ul className="icons">
-                    <li><BiHeart /></li>
-                    <li><BiSearch /></li>
-                    <li><BiCart /></li>
-                </ul>
-            </div>
-            <div className="product-item">
-                <div className="overlay">
-                    <a href="productDetails.htlm" className="product-thumb">
-                        <img src="product4.jpg" alt="" />
-                    </a>
-                    <span className="discount">30%</span>
-                </div>
-                <div className="product-info">
-                    <span>MEN'S CLOTHES</span>
-                    <a href="productDetails.html">
-                        Polar Skate Crewneck
-                    </a>
-                    <h4>$400</h4>
-                </div>
-                <ul className="icons">
-                    <li><BiHeart /></li>
-                    <li><BiSearch /></li>
-                    <li><BiCart /></li>
-                </ul>
-            </div>
+            {selectedRelatedProducts.map((product) => (
+                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart}/>
+            ))}
         </div>
     </div>
     </div>);

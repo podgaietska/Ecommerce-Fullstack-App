@@ -1302,29 +1302,8 @@ li{
 
 /* Product Details */
 
-.product-details-nav{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2rem 5rem;
-  margin: 3rem 0; 
-}
-
-.product-details-nav a:hover{
-  color: rgb(139, 139, 139);
-}
-
-.product-details-nav .directory{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-
-}
-
-.product-details-nav .directory i{
-  margin-right: 0.5rem;
-  font-size: 1.8rem;
+.product-detail{
+  padding-top: 5rem;
 }
 
 .product-detail .details{
@@ -1401,7 +1380,7 @@ li{
   font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  margin-top: 5rem;
+  margin-top: 3rem;
   font-weight: 400;
 }
 
@@ -1426,25 +1405,30 @@ li{
 }
 
 .action-btns{
-  margin: 3rem 0;
+  display: flex;
+  margin: 2rem 0;
 }
 
-.action-btns a{
-  font-size: 1rem;
-}
-
-.addCart{
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--black);
-  color: white;
-  padding: 0.6rem 1rem;
-  border: none;
+.action-btns li{
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  border: 1px solid var(--grey);
+  color: var(--grey);
   cursor: pointer;
   margin-right: 1rem;
 }
 
-.addCart:hover{
+.action-btns li.active{
   background-color: var(--grey);
+  color: white;
+  border: 1px solid grey;
+}
+
+
+.action-btns li:hover{
+  background-color: var(--grey);
+  color: white;
+
 }
 
 .related-products{
