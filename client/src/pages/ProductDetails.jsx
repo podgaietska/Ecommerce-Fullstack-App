@@ -8,7 +8,7 @@ import {BiLeftArrowAlt} from "react-icons/bi";
 import ProductList from "../components/ProductList";
 import Product from "../components/Product";
 
-function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts}) {
+function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     const {state} = useLocation();
     const product = state.product;
 
@@ -17,7 +17,19 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
             removeFromCart(product);
         }
         else{
+            if (productExistsInWishlist(product)){
+                window.alert("Product added to cart!");
+            }
             addToCart(product);
+        }        
+    };
+
+    const handleProductInWishlist = () => {
+        if (productExistsInWishlist(product)){
+            removeFromWishlist(product);
+        }
+        else{
+            addToWishlist(product);
         }        
     };
 
@@ -53,7 +65,7 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
                 </form>
                 <ul className="action-btns">
                     <li className={productExistsInCart(product) ? "active" : ""} onClick={handleProductInCart}><BiCart /></li>
-                    <li className="addCart"><BiHeart /></li>
+                    <li className={productExistsInWishlist(product) ? "active" : ""} onClick={handleProductInWishlist}><BiHeart /></li>
                 </ul>
                 <h3>Product Decription</h3>
                 <p>{product.description}</p>
@@ -67,7 +79,7 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
         </div>
         <div className="product-center">
             {selectedRelatedProducts.map((product) => (
-                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart}/>
+                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>
             ))}
         </div>
     </div>

@@ -163,7 +163,7 @@ const productExistsInWishlist = (product) => {
             <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />
             <Route path="cart" element={<Cart cart={cart} removeFromCart={removeFromCart}/>} />
             <Route path="wishlist" element={<Wishlist wishlist={wishlist} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />
-            <Route path="product-details" element={<ProductDetails addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} allProducts={allProducts}/>} />
+            <Route path="product-details" element={<ProductDetails addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} allProducts={allProducts} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />
             <Route path="login" element={<Login login={login} register={register}/>} />
             <Route path="user-profile" element={<UserProfile user={user}/>} />
           </Route>
