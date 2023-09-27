@@ -38,13 +38,15 @@ function Wishlist({wishlist, addToCart, removeFromCart, productExistsInCart, add
             : <div className="empty-wishlist">Oh no! Looks like your wishlist is empty...</div>}
             
         </div>
-        <div className="pagination">
-            <div className="container">
-                {pages.map((page, index) => (
-                        <span onClick={() => {setPageNum(index)}}>{index + 1}</span>
-                    ))}
-            </div>
+        {wishlist ? 
+        (<div className="pagination">
+        <div className="container">
+            {pages.map((page, index) => (
+                    <span onClick={() => {setPageNum(index)}}>{index + 1}</span>
+                ))}
         </div>
+    </div>) :
+    (<div></div>)}
     </div>);
 }
 

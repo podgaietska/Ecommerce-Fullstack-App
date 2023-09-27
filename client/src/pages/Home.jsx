@@ -70,8 +70,8 @@ function Home() {
         <div className="section new-arrival">
         <div className="info">
             <div className="title">
-                <h1>NEW ARRIVALS</h1>
-                <small>Check out out what's new this week</small>
+                <h1>COMING SOON</h1>
+                <small>Check out out what's coming from Represent</small>
             </div>
             <p>Thus country from who would fardelay, and arms make arms and than fles, puzzles of of of devoutly to othe his nobler ressor's thought himself might himself might, and mortal shuffled o'er be wish'd. Thus pale contumely, and by of outly to, 'tis rath, this respect</p>
         </div>
@@ -80,29 +80,29 @@ function Home() {
                 <div className="card">
                     <div className="card-background" style={{backgroundImage: "url(/card1.jpg)"}}></div>
                     <div className="content">
-                        <div className="card-category">oversize</div>
-                        <h3 className="card-heading">No Plane For Today Tee</h3>
+                        <div className="card-category">HOODIE</div>
+                        <h3 className="card-heading">Burning Red Hoodie</h3>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-background" style={{backgroundImage: "url(/card5.jpg)"}}></div>
                     <div className="content">
-                        <div className="card-category">hoodies</div>
-                        <h3 className="card-heading">Boneless Hoddie</h3>
+                        <div className="card-category">SHIRT</div>
+                        <h3 className="card-heading">No Plane For Today Tee</h3>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-background" style={{backgroundImage: "url(/card3.jpg)"}}></div>
                     <div className="content">
-                        <div className="card-category">polo</div>
-                        <h3 className="card-heading">Cream Polo Sweater</h3>
+                        <div className="card-category">HOODIE</div>
+                        <h3 className="card-heading">Nature Green Hoodie</h3>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-background" style={{backgroundImage: "url(/card4.jpg)"}}></div>
                     <div className="content">
-                        <div className="card-category">hoodies</div>
-                        <h3 className="card-heading">Cream Hoodie</h3>
+                        <div className="card-category">JACKET</div>
+                        <h3 className="card-heading">Bright Orange Vintage Jacket</h3>
                     </div>
                 </div>
             </div>

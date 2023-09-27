@@ -151,6 +151,7 @@ const productExistsInWishlist = (product) => {
         }
 }
 
+
   return (
     <div className="app-container">
       <BrowserRouter>
@@ -160,7 +161,7 @@ const productExistsInWishlist = (product) => {
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />
             <Route path="blog" element={<Blog />} />
-            <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />
+            <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist} />} />
             <Route path="cart" element={<Cart cart={cart} removeFromCart={removeFromCart}/>} />
             <Route path="wishlist" element={<Wishlist wishlist={wishlist} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />
             <Route path="product-details" element={<ProductDetails addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} allProducts={allProducts} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />
