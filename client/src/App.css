@@ -1136,6 +1136,30 @@ li{
 
 /* Cart */
 
+.empty-wishlist{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  font-size: 1.5rem;
+  color: var(--greytext);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  margin-bottom: 2rem;
+}
+
+.empty-cart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  font-size: 1.5rem;
+  color: var(--greytext);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  border: 1px solid #e2e9e1;
+  margin-bottom: 2rem;
+}
 
 .cart{
   width: 100%;
@@ -1871,6 +1895,89 @@ li{
   font-size: 0.8rem;
   border-radius: 0;
   border: 1px solid black;
+  cursor: pointer;
 }
 
-/* Profile Dropdown Menu */
+/* User Edit Window */
+.user-editor-display{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 500000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+}
+
+.user-editor-container{
+  width: 40%;
+  background: white;
+  height: 60%;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  padding: 4rem 3rem;
+}
+
+.user-editor-field{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem;
+  margin: 0.5rem 0;
+  background: var(--grey2);
+}
+
+.column-edit-fields{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column-edit-fields .col{
+  display: flex;
+  width: 45%;
+  justify-content: space-between;
+}
+
+.user-editor-container input{
+  width: 100%;
+  padding: 12px 15px;
+  outline: none;
+  margin: 0.5rem 0;
+  border: 1px solid #e2e9e1;
+  font-size: 0.7rem;
+}
+
+.column-edit-fields input{
+  width: 45%;
+}
+
+.user-editor-close-btn{
+  position: absolute;
+  cursor: pointer;
+  top: 50px;
+  right: 50px;
+}
+
+.information-update-btn{
+  padding: 0.5rem 0;
+  width: 10rem;
+  margin-top: 3rem;
+  font-size: 0.8rem;
+}
+
+.user-editor-container .title{
+  font-family: 'Popins', sans-serif;
+  font-weight: 200;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}

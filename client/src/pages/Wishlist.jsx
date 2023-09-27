@@ -25,20 +25,26 @@ function Wishlist({wishlist, addToCart, removeFromCart, productExistsInCart, add
         return productsOnPage;
     };
 
-    return(<div>
+    return(
+    <div>
         <div className="section all-products">
-        <div className="top">
-            <h1>MY WISHLIST</h1>
-        </div>
+            <div className="top">
+                <h1>MY WISHLIST</h1>
+            </div>
+            {wishlist.length !== 0 ? 
+            <div>
             {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
-    </div>
-    <div className="pagination">
-        <div className="container">
-            {pages.map((page, index) => (
-                    <span onClick={() => {setPageNum(index)}}>{index + 1}</span>
-                ))}
+            </div>
+            : <div className="empty-wishlist">Oh no! Looks like your wishlist is empty...</div>}
+            
         </div>
-    </div>
+        <div className="pagination">
+            <div className="container">
+                {pages.map((page, index) => (
+                        <span onClick={() => {setPageNum(index)}}>{index + 1}</span>
+                    ))}
+            </div>
+        </div>
     </div>);
 }
 

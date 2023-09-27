@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { authJwt } = require('../middleware/jwt');
 
 router.get('/', asyncHandler(async(req, res) => {
     const userList = await User.find().select('name phone email'); // only display name, phone and email
@@ -48,6 +49,33 @@ router.post('/', asyncHandler(async(req, res) => {
     
     res.status(201).json(user);
 }))
+
+router.put('/:id', asyncHandler(async(req, res) => {
+    const user = await User.findById(req.params.id)
+    if(!user){
+        res.status(404).send('The user cannot be found')
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+        req.params.id, 
+        {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            passwordHash: user.passwordHash,
+            phone: req.body.phone,
+            isAdmin: user.isAdmin,
+            street: req.body.street,
+            apartment: req.body.apartment,
+            zip: req.body.zip,
+            city: req.body.city,
+            country: req.body.country,
+        },
+        {new: true}
+    )
+
+    res.status(200).json(updatedUser);
+}));
 
 router.post('/login', asyncHandler(async(req, res) => {
     const user = await User.findOne({email: req.body.email});

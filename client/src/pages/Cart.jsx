@@ -14,7 +14,8 @@ function Cart({cart, removeFromCart}) {
             <h2>.shopping cart</h2>
         </div>
         {/* Cart */}
-        <div className="container cart">
+        {cart.length !==0 ? (
+            <div className="container cart">
             <table width="100%">
                 <thead>
                     <tr>
@@ -31,7 +32,8 @@ function Cart({cart, removeFromCart}) {
                     ))}
                 </tbody>
             </table>
-        </div>
+        </div>)
+        : <div className="empty-cart">Oh no! Looks like your cart is empty...</div>}
 
         {/* Payment */}
         <div className="cart-payment">
