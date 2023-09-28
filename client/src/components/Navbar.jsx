@@ -4,7 +4,7 @@ import { BiUser, BiHeart, BiCart } from "react-icons/bi";
 import ProfileDropdown from './ProfileDropdown';
 import { useState } from 'react';
 
-function Navbar({user, cart, wishlist}){
+function Navbar({user, cart, wishlist, logout}){
     const [isShown, setIsShown] = useState(false);
     const [stays, setStays] = useState(false);
     const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
@@ -57,7 +57,7 @@ function Navbar({user, cart, wishlist}){
                     </Link>
                 </div>
                 {(isShown || stays) && <div className="dropdown-menu" onMouseEnter={handleMouseStay} onMouseLeave={handleMouseOut}>
-                        <ProfileDropdown />
+                        <ProfileDropdown logout={logout}/>
                     </div>}
             </div>
         </div>

@@ -2,21 +2,16 @@ import React from "react";
 import {useState} from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function ProfileDropdown() {
+function ProfileDropdown({logout}) {
     const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
     let location = useLocation();
 
     const handleLogOut = () => {
-        const answer = window.confirm('Are you sure you want to log out?');
-        if(answer){
-            if(localStorage.user){
-                localStorage.removeItem('user');
-                window.location.reload();
-                if (location.pathname === '/user-profile'){
-                    window.location.href = '/login';
-                }
-            }; 
-        }  
+        logout();
+        window.location.reload();
+            if (location.pathname === '/user-profile'){
+                window.location.href = '/login';
+                } 
     };
 
     return (

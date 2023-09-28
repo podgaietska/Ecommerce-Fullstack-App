@@ -42,7 +42,57 @@ function App() {
     } 
   }, []);
 
-  const login = (email, password) => {
+  const getUserCart = (data) => {
+    const userData = data;
+    try {
+      const fetchCart = async () => {
+        const res = await fetch(`api/cart/${userData.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userData.token}`,
+          },
+        });
+        if (!res.ok){
+          throw new Error(`An error occured: ${res.status}`);
+        }
+        const data = await res.json();
+        console.log(data);
+        setCart(data.cartItems);
+        localStorage.setItem('cart', JSON.stringify(data.cartItems));
+      }
+      fetchCart();
+    } catch (error){
+      console.log(error);
+    }
+  }
+
+  const getUserWishlist = (data) => {
+    const userData = data;
+    try {
+      const fetchWishlist = async () => {
+        const res = await fetch(`api/wishlist/${userData.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userData.token}`,
+          },
+        });
+        if (!res.ok){
+          throw new Error(`An error occured: ${res.status}`);
+        }
+        const data = await res.json();
+        console.log(data);
+        setWishlist(data.wishlistItems);
+        localStorage.setItem('wishlist', JSON.stringify(data.wishlistItems))
+      }
+      fetchWishlist();
+    } catch (error){
+      console.log(error);
+    }
+  }
+
+  const login = async(email, password) => {
     try{
         const fetchLogin = async () => {
             const res = await fetch('api/users/login', {
@@ -59,14 +109,17 @@ function App() {
             const data = await res.json();
             setUser(data);
             localStorage.setItem('user', JSON.stringify(data));
+            getUserCart(data);
+            getUserWishlist(data);
         }
         fetchLogin();
     }catch (error){
         console.log(error);
     }
+    
 };
 
-const register = (firstName, lastName, email, password, phone, street, apartment, postal, city, country) => {
+const register = async(firstName, lastName, email, password, phone, street, apartment, postal, city, country) => {
   try{
       const fetchRegister = async () => {
           const res = await fetch('api/users/register', {
@@ -98,10 +151,41 @@ const register = (firstName, lastName, email, password, phone, street, apartment
   } 
 };
 
+const logout = () => {
+  const answer = window.confirm('Are you sure you want to log out?');
+        if(answer){
+            if(localStorage.user){
+                localStorage.removeItem('user');
+                localStorage.removeItem('cart');
+                localStorage.removeItem('wishlist');
+            }; 
+            setUser(null);
+            setCart([]);
+            setWishlist([]);
+        } 
+}
+
 const addToCart = async (product) => {
   const inCart = cart.find((item) => item._id === product._id);
+  const addProductToCart = async () => {
+    try {
+      const res = await fetch(`api/cart/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({
+          cartItems: [...cart, product._id],
+        })
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   if(!inCart){
     setCart([...cart, product]);
+    addProductToCart();
     localStorage.setItem('cart', JSON.stringify([...cart, product]));
   }
 };
@@ -126,8 +210,28 @@ const productExistsInCart = (product) => {
 
 const addToWishlist = async (product) => {
   const inWishlist = wishlist.find((item) => item._id === product._id);
+  const addProductToWishlist = async () => {
+    console.log('adding to wishlist');
+    try {
+      const res = await fetch(`api/wishlist/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({
+          wishlistItems: [...wishlist, product._id],
+        })
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   if(!inWishlist){
     setWishlist([...wishlist, product]);
+    addProductToWishlist();
     localStorage.setItem('wishlist', JSON.stringify([...wishlist, product]));
   }
 };
@@ -150,12 +254,11 @@ const productExistsInWishlist = (product) => {
         }
 }
 
-
   return (
     <div className="app-container">
       <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Layout user={user} cart={cart} wishlist={wishlist}/>}>
+          <Route path="/" element={<Layout user={user} cart={cart} wishlist={wishlist} logout={logout}/>}>
             <Route index element={<Home />} />
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />

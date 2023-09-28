@@ -58,7 +58,6 @@ router.put('/:id', asyncHandler(async(req, res) => {
         {
             user: req.params.id,
             wishlistItems: req.body.wishlistItems,
-            totalPrice: totalPrice,
         }, 
         {new: true} //parameter to sqpecify that we want to return the updated object
     )
