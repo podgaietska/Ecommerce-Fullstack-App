@@ -11,8 +11,6 @@ const authJwt = () => {
             {url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS']},
             {url: /\/api\/products(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/products
             {url: /\/api\/categories(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
-            {url: /\/api\/users(.*)/, methods: ['GET', 'OPTIONS']},
-            {url: /\/api\/users(.*)/, methods: ['PUT', 'OPTIONS']},
             '/api/users/login',
             '/api/users/register'
         ]
@@ -20,11 +18,22 @@ const authJwt = () => {
 }
 
 async function isRevoked(req, token){
-    if(!token.payload.isAdmin){
-        return true
+    const url =req.url;
+    const urlPattern = /\/api\/[^/]+\/([^/]+)\/?$/;
+
+    const matches = urlPattern.exec(url);
+    if(matches && matches[1]){
+        const extractedId = matches[1];
+        if (extractedId === token.payload.userId){
+            return undefined
+        }
     }
 
-    return undefined
+    if(token.payload.isAdmin){
+        return undefined
+    }
+
+    return true
 }
 
 module.exports = authJwt;

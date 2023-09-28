@@ -23,7 +23,6 @@ function UserProfile({user}) {
                     throw new Error(`An error occured: ${res.status}`);
                 }
                 const data = await res.json();
-                console.log(data);
                 setUserInfo(data);
             }
 
@@ -58,6 +57,7 @@ function UserProfile({user}) {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
                 body: JSON.stringify(updatedUser),
             });
@@ -66,7 +66,6 @@ function UserProfile({user}) {
                 throw new Error(`An error occured: ${res.status}`);
             }
             const data = await res.json();
-            console.log(data);
             setUserInfo(data);
         } catch (error) {
             console.log(error);

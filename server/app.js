@@ -32,6 +32,7 @@ const productRouter = require('./routes/productsRouter');
 const categoriesRouter = require('./routes/categoriesRouter');
 const ordersRouter = require('./routes/ordersRouter');
 const usersRouter = require('./routes/usersRouter');
+const cartRouter = require('./routes/cartRouter');
 
 const url = process.env.API_URL;
 
@@ -39,6 +40,7 @@ app.use(`${url}/products`, productRouter);
 app.use(`${url}/categories`, categoriesRouter);
 app.use(`${url}/orders`, ordersRouter);
 app.use(`${url}/users`, usersRouter);
+app.use(`${url}/cart`, cartRouter);
 
 app.use(errorHandler);
 

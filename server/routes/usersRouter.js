@@ -4,7 +4,6 @@ const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { authJwt } = require('../middleware/jwt');
 
 router.get('/', asyncHandler(async(req, res) => {
     const userList = await User.find().select('name phone email'); // only display name, phone and email

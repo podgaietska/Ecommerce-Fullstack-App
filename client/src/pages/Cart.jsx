@@ -22,7 +22,6 @@ function Cart({cart, removeFromCart}) {
                         <td>Image</td>
                         <td>Product</td>
                         <td>Price</td>
-                        <td>Quantity</td>
                         <td>Remove</td>
                     </tr>
                 </thead>

@@ -2,6 +2,7 @@ import React from "react";
 import '../slider.scss';
 import Glide from "@glidejs/glide"
 import { useEffect } from "react";
+import {Link} from "react-router-dom";
 
 function Home() {
     const sliderConfig = {
@@ -29,9 +30,9 @@ function Home() {
                     <li className="glide__slide">
                         <div className="center">
                             <div className="left">
-                                <span>New Collection 2023</span>
-                                <h1>LIMITED ADDITION</h1>
-                                <p>Trending from men's and women's style collection</p>
+                                <span>New inspirations of 2023</span>
+                                <h1>FIND YOUR STYLE</h1>
+                                <p>Explore the hottest brands and their newest collections</p>
                             </div>
                             <div className="right">
                                 <img src="/hero1.png" className="img1" alt="hero1"/>
@@ -42,8 +43,8 @@ function Home() {
                         <div className="center">
                             <div className="left">
                                 <span>New Inspiration 2023</span>
-                                <h1>NEW COLLECTION</h1>
-                                <p>Trending from men's and women's style collection</p>
+                                <h1>CURATED FOR YOU</h1>
+                                <p>Discover, define, and design your unique style journey.</p>
                             </div>
                             <div className="right">
                                 <img src="/hero2.png" className="img2" alt="hero2"/>
@@ -54,8 +55,8 @@ function Home() {
                         <div className="center">
                             <div className="left">
                                 <span>New Inspiration 2023</span>
-                                <h1>NEW COLLECTION</h1>
-                                <p>Trending from men's and women's style collection</p>
+                                <h1>ELEVATE YOUR FASHION</h1>
+                                <p>Unearth the extraordinary in fashion with us.</p>
                             </div>
                             <div className="right">
                                 <img src="/hero3.png" className="img3" alt="hero3"/>
@@ -73,7 +74,7 @@ function Home() {
                 <h1>COMING SOON</h1>
                 <small>Check out out what's coming from Represent</small>
             </div>
-            <p>Thus country from who would fardelay, and arms make arms and than fles, puzzles of of of devoutly to othe his nobler ressor's thought himself might himself might, and mortal shuffled o'er be wish'd. Thus pale contumely, and by of outly to, 'tis rath, this respect</p>
+            <p>Our mission is clear: we're here to provide you with access to the trendiest, most sought-after clothing from renowned brands. Whether you're looking to refine your personal style or discover new ways to express yourself. Our carefully curated selection of limited-edition and hard-to-find pieces is designed to make your search effortless. </p>
         </div>
         <div className="card-section">
             <div className="card-container">
@@ -117,37 +118,34 @@ function Home() {
             </div>
         </div>
         <div className="brands-top">
-            <div className="brand">
-                <img src="/suspiciousBanner.jpg" alt="" />
+            <Link to="/shop" state={{brand: 'undercover'}} className="brand">
+                <img src="/undercoverbanner.jpg" alt="" />
                 <div>
-                    <p>SUSPICIOUS</p>
+                    <p>UNDERCOVER</p>
                 </div>
-            </div>
-            <div className="brand">
+            </Link>
+            <Link to="/shop" className="brand">
                 <img src="/representBanner.jpg" alt="" />
                 <div>
                     <p>REPRESENT</p>
                 </div>
-            </div>
+            </Link>
         </div>
         <div className="brands-bottom">
-            <div className="brand">
+            <Link to="/shop" className="brand">
                 <img src="/northfaceBanner.jpg" alt="" />
                 <div>
                     <p>NORTH FACE</p>
                 </div>
-            </div>
-            <div className="brand">
+            </Link>
+            <Link to="/shop" className="brand">
                 <img src="/palaceBanner.jpg" alt="" />
                 <div>
                     <p>PALACE</p>
                 </div>
-            </div>
-            <div className="brand">
-                <img src="/iamgiaBanner.jpg" alt="" />
-                <div>
-                    <p>I AM GIA</p>
-                </div>
+            </Link>
+            <div className="brand text">
+                <p>Every week, we embark on a mission to showcase the most innovative brands with the hottest pieces. Our team scours the fashion landscape to bring you the latest and greatest from the world of style. From emerging designers pushing boundaries to well-established labels redefining trends, our curated selection reflects the ever-evolving nature of fashion. </p>
             </div>
         </div>
     </div>

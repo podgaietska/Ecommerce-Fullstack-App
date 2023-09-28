@@ -1,7 +1,7 @@
 import React from "react";
 import ProductList from "../components/ProductList";
 import {useState, useEffect, useRef} from "react";
-
+import {useLocation} from "react-router-dom";
 
 function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     const [category, setCategory] = useState('all-products');
@@ -10,6 +10,12 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [productsOnPage, setProductsOnPage] = useState([]);
     const topRef = useRef();
+    const {state} = useLocation();
+    const [brand, setBrand] = useState(state ? state.brand : null);
+
+    useEffect(() => {
+        topRef.current.scrollIntoView({ behavior: "smooth"});
+    }, []);
 
     useEffect(() => {
         if(category === 'all-products'){
@@ -53,33 +59,53 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
     }
 
     return (
-    <div>
-        <div className="section all-products">
-        <div className="top" ref={topRef}>
-            {category !== "all-products" ? (<h1>{category.toUpperCase()}</h1>) : (<h1>ALL PRODUCTS</h1>)}
-            <form>
-                <select defaultValue={'all-products'} onChange={(e) => {setCategory(e.target.value)}}>
-                    <option value="all-products">All Products</option>
-                    <option value="jackets">Jackets</option>
-                    <option value="t-shirts">T-shirts</option>
-                    <option value="hoodies">Hoodies</option>
-                    <option value="crewnecks">Crewnecks</option>
-                    <option value="pants">Pants</option>
-                </select>
-                <span><i className="bx bx-chevron-down"></i></span>
-            </form>
+    <>
+        {brand !== null ? (
+            <div>
+            <div className="section all-products">
+            <div className="top" ref={topRef}>
+                <h1>{brand.toUpperCase()}</h1>
+            </div>
+            {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
         </div>
-        {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>
-}
-    </div>
-        <div className="pagination">
-            <div className="container">
-                {pages.map((page, index) => (
-                    <span onClick={() => changePage(index)}>{index + 1}</span>
-                ))}
+            <div className="pagination">
+                <div className="container">
+                    {pages.map((page, index) => (
+                        <span onClick={() => changePage(index)}>{index + 1}</span>
+                    ))}
+                </div>
             </div>
         </div>
-    </div>);
-    }
+        ) : (
+            <div>
+            <div className="section all-products">
+            <div className="top" ref={topRef}>
+                {category !== "all-products" ? (<h1>{category.toUpperCase()}</h1>) : (<h1>ALL PRODUCTS</h1>)}
+                <form>
+                    <select defaultValue={'all-products'} onChange={(e) => {setCategory(e.target.value)}}>
+                        <option value="all-products">All Products</option>
+                        <option value="jackets">Jackets</option>
+                        <option value="t-shirts">T-shirts</option>
+                        <option value="hoodies">Hoodies</option>
+                        <option value="crewnecks">Crewnecks</option>
+                        <option value="pants">Pants</option>
+                    </select>
+                    <span><i className="bx bx-chevron-down"></i></span>
+                </form>
+            </div>
+            {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
+        </div>
+            <div className="pagination">
+                <div className="container">
+                    {pages.map((page, index) => (
+                        <span onClick={() => changePage(index)}>{index + 1}</span>
+                    ))}
+                </div>
+            </div>
+        </div>
+        )}
+    </>
+    );
+}
 
 export default Shop;

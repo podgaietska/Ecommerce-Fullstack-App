@@ -31,7 +31,15 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
         }        
     };
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
     const relatedProducts = allProducts.filter(relatedProduct => relatedProduct._id !== product._id);
+    shuffleArray(relatedProducts);
     const selectedRelatedProducts = relatedProducts.slice(0, 4);
 
     console.log(selectedRelatedProducts);
@@ -72,8 +80,8 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
     </div>
     <div className="section new-arrival">
         <div className="title related-products">
-            <h1>RELATED PRODUCTS</h1>
-            <p>Check out similar styles</p>
+            <h1>RELATED ITEMS</h1>
+            <p>Check out similar styles that others also liked</p>
         </div>
         <div className="product-center">
             {selectedRelatedProducts.map((product) => (

@@ -92,14 +92,12 @@ function Login({login, register}){
                         <h1 className="title-login">Welcome <br />back</h1>
                         <p>If you have an account, click below to login</p>
                         <button className="ghost" id="login" onClick={switchLogin}>Login
-                            <BiRightArrowAlt className="bx bx-right-arrow-alt login" />
                         </button>
                     </div>
                     <div className="overlay-panel overlay-right">
                         <h1 className="title-login">Start your <br />journey now</h1>
                         <p>If you don't have an account, join us! Click below to register</p>
                         <button className="ghost" id="register" onClick={switchLogin}>Register
-                            <BiLeftArrowAlt className="bx bx-left-arrow-alt register" />
                         </button>
                     </div>
                 </div>

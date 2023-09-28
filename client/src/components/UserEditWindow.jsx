@@ -16,7 +16,8 @@ function UserEditWindow({user, userInfo, setUserInfo, field, changeVisibilityEdi
 
     const onSubmit = (e) => {
         e.preventDefault();
-        updateUserInfo(firstName, lastName, phone, email, street, apartment, city, zip, country);
+        const answer = window.confirm('Are you sure you want to update your information?');
+        if (answer) updateUserInfo(firstName, lastName, phone, email, street, apartment, city, zip, country);
     };
 
     return (
