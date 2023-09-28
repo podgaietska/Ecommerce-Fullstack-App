@@ -31,19 +31,19 @@ router.post('/:id', asyncHandler(async(req, res) => {
     if(usedWishlist){
         res.status(400).json({error: 'A wishlist for this user already exists'})
         throw new Error('Wishlist for this user already exists')
+    } else{
+        let wishlist = new Wishlist({
+            user: req.params.id,
+            wishlistItems: [],
+        })
+    
+        wishlist = await wishlist.save();
+    
+        if(!wishlist){
+            res.status(500).json({success: false, message: 'The wishlist cannot be created'})
+        }
+        res.status(201).json(wishlist);
     }
-
-    let wishlist = new Wishlist({
-        user: req.params.id,
-        wishlistItems: [],
-    })
-
-    wishlist = await wishlist.save();
-
-    if(!wishlist){
-        res.status(500).json({success: false, message: 'The wishlist cannot be created'})
-    }
-    res.status(201).json(wishlist);
 }))
 
 router.put('/:id', asyncHandler(async(req, res) => {
@@ -58,6 +58,7 @@ router.put('/:id', asyncHandler(async(req, res) => {
         {
             user: req.params.id,
             wishlistItems: req.body.wishlistItems,
+            totalPrice: totalPrice,
         }, 
         {new: true} //parameter to sqpecify that we want to return the updated object
     )
@@ -65,8 +66,7 @@ router.put('/:id', asyncHandler(async(req, res) => {
     .populate('wishlistItems', 'name price');
 
     if (!wishlist){
-        res.status(404).send('The wishlist does not exist')
-        throw new Error('The wishlist does not exist')
+        res.status(404).send('The cart does not exist')
     }
     res.status(201).json(wishlist);
 }))

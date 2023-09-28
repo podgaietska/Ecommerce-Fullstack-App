@@ -11,6 +11,8 @@ const authJwt = () => {
             {url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS']},
             {url: /\/api\/products(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/products
             {url: /\/api\/categories(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
+            {url: /\/api\/cart(.*)/, methods: ['POST', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
+            {url: /\/api\/wishlist(.*)/, methods: ['POST', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
             '/api/users/login',
             '/api/users/register'
         ]

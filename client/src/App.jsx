@@ -69,7 +69,6 @@ function App() {
 const register = (firstName, lastName, email, password, phone, street, apartment, postal, city, country) => {
   try{
       const fetchRegister = async () => {
-          console.log('registring');
           const res = await fetch('api/users/register', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
@@ -96,7 +95,7 @@ const register = (firstName, lastName, email, password, phone, street, apartment
       fetchRegister();
   }catch (error){
       console.log(error);
-  }
+  } 
 };
 
 const addToCart = async (product) => {

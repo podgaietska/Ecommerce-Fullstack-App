@@ -7,12 +7,11 @@ const asyncHandler = require('express-async-handler');
 
 router.get('/:id', async(req, res) => {
     const cart = await Cart.findOne({user: req.params.id})
-    .populate('user', 'email')
+    .populate('user', 'name')
     .populate('cartItems', 'name price');
 
     if(!cart){
         res.status(500).json({success: false})
-        throw new Error('Cart not found')
     }
 
     res.send(cart)
@@ -24,27 +23,25 @@ router.post('/:id', asyncHandler(async(req, res) => {
     //validate user exists
     if(!user){
         res.status(400).json({error: 'Invalid user'})
-        throw new Error('Invalid user')
     }
     //validate that user doesn't have cart already
     const usedCart = await Cart.findOne({user: req.params.id})
     if(usedCart){
         res.status(400).json({error: 'A cart for this user already exists'})
-        throw new Error('Cart for this user already exists')
+    }else{
+        let cart = new Cart({
+            user: req.params.id,
+            cartItems: [],
+            totalPrice: 0,
+        })
+    
+        cart = await cart.save();
+    
+        if(!cart){
+            res.status(500).json({success: false, message: 'The cart cannot be created'})
+        }
+        res.status(201).json(cart);
     }
-
-    let cart = new Cart({
-        user: req.params.id,
-        cartItems: [],
-        totalPrice: 0,
-    })
-
-    cart = await cart.save();
-
-    if(!cart){
-        res.status(500).json({success: false, message: 'The cart cannot be created'})
-    }
-    res.status(201).json(usedCart);
 }))
 
 router.put('/:id', asyncHandler(async(req, res) => {
@@ -52,7 +49,6 @@ router.put('/:id', asyncHandler(async(req, res) => {
     const usedCart = await Cart.findOne({user: req.params.id})
     if(!usedCart){
         res.status(400).json({error: 'A cart for this user already exists'})
-        throw new Error('A cart for this user was not found')
     }
 
     const totalPrices = await Promise.all(req.body.cartItems.map(async (cartItem) => {
@@ -71,7 +67,7 @@ router.put('/:id', asyncHandler(async(req, res) => {
         }, 
         {new: true} //parameter to sqpecify that we want to return the updated object
     )
-    .populate('user', 'email')
+    .populate('user', 'name')
     .populate('cartItems', 'name price');
 
     if (!cart){
