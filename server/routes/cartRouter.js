@@ -7,14 +7,17 @@ const asyncHandler = require('express-async-handler');
 
 router.get('/:id', async(req, res) => {
     const cart = await Cart.findOne({user: req.params.id})
-    .populate('user', 'name')
-    .populate('cartItems', 'name price');
 
     if(!cart){
         res.status(500).json({success: false})
     }
 
-    res.send(cart)
+    const cartItems = await Promise.all(cart.cartItems.map(async (cartItem) => {
+        const product = await Product.findById(cartItem);
+        return product;
+    }))
+
+    res.send(cartItems)
 })
 
 //will create a new cart for a user on registration
@@ -40,7 +43,7 @@ router.post('/:id', asyncHandler(async(req, res) => {
         if(!cart){
             res.status(500).json({success: false, message: 'The cart cannot be created'})
         }
-        res.status(201).json(cart);
+        res.status(201).json(cart.cartItems);
     }
 }))
 
@@ -67,13 +70,11 @@ router.put('/:id', asyncHandler(async(req, res) => {
         }, 
         {new: true} //parameter to sqpecify that we want to return the updated object
     )
-    .populate('user', 'name')
-    .populate('cartItems', 'name price');
 
     if (!cart){
         res.status(404).send('The cart does not exist')
     }
-    res.status(201).json(cart);
+    res.status(201).json(cart.cartItems);
 }))
 
 router.delete('/:id', (req, res) => {

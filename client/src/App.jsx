@@ -58,8 +58,8 @@ function App() {
         }
         const data = await res.json();
         console.log(data);
-        setCart(data.cartItems);
-        localStorage.setItem('cart', JSON.stringify(data.cartItems));
+        setCart(data);
+        localStorage.setItem('cart', JSON.stringify(data));
       }
       fetchCart();
     } catch (error){
@@ -83,8 +83,8 @@ function App() {
         }
         const data = await res.json();
         console.log(data);
-        setWishlist(data.wishlistItems);
-        localStorage.setItem('wishlist', JSON.stringify(data.wishlistItems))
+        setWishlist(data);
+        localStorage.setItem('wishlist', JSON.stringify(data))
       }
       fetchWishlist();
     } catch (error){

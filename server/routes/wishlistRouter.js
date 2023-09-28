@@ -7,15 +7,18 @@ const asyncHandler = require('express-async-handler');
 
 router.get('/:id', async(req, res) => {
     const wishlist = await Wishlist.findOne({user: req.params.id})
-    .populate('user', 'email')
-    .populate('wishlistItems', 'name price');
 
     if(!wishlist){
         res.status(500).json({success: false})
         throw new Error('Wishlist not found')
     }
 
-    res.send(wishlist)
+    const wishlistItems = await Promise.all(wishlist.wishlistItems.map(async (wishlistItem) => {
+        const product = await Product.findById(wishlistItem);
+        return product;
+    }))
+
+    res.send(wishlistItems)
 })
 
 //will create a new wishlist for a user on registration
@@ -42,7 +45,7 @@ router.post('/:id', asyncHandler(async(req, res) => {
         if(!wishlist){
             res.status(500).json({success: false, message: 'The wishlist cannot be created'})
         }
-        res.status(201).json(wishlist);
+        res.status(201).json(wishlist.wishlistItems);
     }
 }))
 
@@ -61,13 +64,11 @@ router.put('/:id', asyncHandler(async(req, res) => {
         }, 
         {new: true} //parameter to sqpecify that we want to return the updated object
     )
-    .populate('user', 'email')
-    .populate('wishlistItems', 'name price');
 
     if (!wishlist){
         res.status(404).send('The cart does not exist')
     }
-    res.status(201).json(wishlist);
+    res.status(201).json(wishlist.wishlistItems);
 }))
 
 router.delete('/:id', (req, res) => {
