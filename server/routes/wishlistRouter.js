@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Cart = require('../models/cartModel');
+const Wishlist = require('../models/wishlistModel');
 const Product = require('../models/productModel');
 const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 
 router.get('/:id', async(req, res) => {
-    const cart = await Cart.findOne({user: req.params.id})
+    const wishlist = await Wishlist.findOne({user: req.params.id})
     .populate('user', 'email')
-    .populate('cartItems', 'name price');
+    .populate('wishlistItems', 'name price');
 
-    if(!cart){
+    if(!wishlist){
         res.status(500).json({success: false})
-        throw new Error('Cart not found')
+        throw new Error('Wishlist not found')
     }
 
-    res.send(cart)
+    res.send(wishlist)
 })
 
-//will create a new cart for a user on registration
+//will create a new wishlist for a user on registration
 router.post('/:id', asyncHandler(async(req, res) => {
     const user = await User.findById(req.params.id);
     //validate user exists
@@ -27,57 +27,48 @@ router.post('/:id', asyncHandler(async(req, res) => {
         throw new Error('Invalid user')
     }
     //validate that user doesn't have cart already
-    const usedCart = await Cart.findOne({user: req.params.id})
-    if(usedCart){
-        res.status(400).json({error: 'A cart for this user already exists'})
-        throw new Error('Cart for this user already exists')
+    const usedWishlist = await Wishlist.findOne({user: req.params.id})
+    if(usedWishlist){
+        res.status(400).json({error: 'A wishlist for this user already exists'})
+        throw new Error('Wishlist for this user already exists')
     }
 
-    let cart = new Cart({
+    let wishlist = new Wishlist({
         user: req.params.id,
-        cartItems: [],
-        totalPrice: 0,
+        wishlistItems: [],
     })
 
-    cart = await cart.save();
+    wishlist = await wishlist.save();
 
-    if(!cart){
-        res.status(500).json({success: false, message: 'The cart cannot be created'})
+    if(!wishlist){
+        res.status(500).json({success: false, message: 'The wishlist cannot be created'})
     }
-    res.status(201).json(usedCart);
+    res.status(201).json(wishlist);
 }))
 
 router.put('/:id', asyncHandler(async(req, res) => {
     //validate cart exists
-    const usedCart = await Cart.findOne({user: req.params.id})
-    if(!usedCart){
+    const usedWishlist = await Wishlist.findOne({user: req.params.id})
+    if(!usedWishlist){
         res.status(400).json({error: 'A cart for this user already exists'})
-        throw new Error('A cart for this user was not found')
+        throw new Error('A wishlist for this user was not found')
     }
 
-    const totalPrices = await Promise.all(req.body.cartItems.map(async (cartItem) => {
-        const product = await Product.findById(cartItem);
-        const totalPrice = product.price;
-        return totalPrice;
-    }))
-
-    const totalPrice = totalPrices.reduce((a, b) => a+b, 0);
-
-    const cart = await Cart.findOneAndUpdate({user: req.params.id}, 
+    const wishlist = await Wishlist.findOneAndUpdate({user: req.params.id}, 
         {
             user: req.params.id,
-            cartItems: req.body.cartItems,
-            totalPrice: totalPrice,
+            wishlistItems: req.body.wishlistItems,
         }, 
         {new: true} //parameter to sqpecify that we want to return the updated object
     )
     .populate('user', 'email')
-    .populate('cartItems', 'name price');
+    .populate('wishlistItems', 'name price');
 
-    if (!cart){
-        res.status(404).send('The cart does not exist')
+    if (!wishlist){
+        res.status(404).send('The wishlist does not exist')
+        throw new Error('The wishlist does not exist')
     }
-    res.status(201).json(cart);
+    res.status(201).json(wishlist);
 }))
 
 router.delete('/:id', (req, res) => {
