@@ -10,7 +10,6 @@ function Navbar({user, cart, wishlist, logout}){
     const [isShown, setIsShown] = useState(false);
     const [dropdownMenu, setDropdownMenu] = useState(false);
     const [stays, setStays] = useState(false);
-    const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
 
     const isWindow = useMediaQuery("(min-width: 800px)");
 
@@ -40,7 +39,7 @@ function Navbar({user, cart, wishlist, logout}){
             <div className="container d-flex">
                 <p>Order online or Call us: (000) 2222 5555</p>
                 <ul className="d-flex">
-                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/">About</Link></li>
                     <li><Link to="/">FAQ</Link></li>
                     <li><Link to="/contact">Contact</Link></li>
                 </ul>

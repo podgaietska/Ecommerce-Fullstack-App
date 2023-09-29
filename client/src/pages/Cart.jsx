@@ -38,7 +38,7 @@ function Cart({cart, removeFromCart}) {
                 <h3>Apply Coupon</h3>
                 <div>
                     <input type="text" placeholder="Enter Your Coupon" />
-                    <button className="coupon-btn">Apply</button>
+                    <button className="coupon-btn" onClick={() => window.alert('Sorry, this coupon was not found')}>Apply</button>
                 </div>
             </div>
             <div className="subtotal">
@@ -59,7 +59,7 @@ function Cart({cart, removeFromCart}) {
                         </tr>
                     </tbody>
                 </table>
-                <button className="checkout-btn">Proceed to checkout</button>
+                <button className="checkout-btn" onClick={() => window.alert('This is a sample website, this function is not yet available')}>Proceed to checkout</button>
             </div>
         </div>
     </div>);

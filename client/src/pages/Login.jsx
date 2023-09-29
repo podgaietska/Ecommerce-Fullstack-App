@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import {BiRightArrowAlt, BiLeftArrowAlt} from "react-icons/bi";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login({login, register}){
@@ -41,24 +40,24 @@ function Login({login, register}){
                 <form onSubmit={onRegister}>
                     <h1>Register Here</h1>
                     <div className="input-col">
-                    <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)}/>
-                    <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)}/>
+                    <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} required/>
+                    <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} required/>
                     </div>
                     <div className="input-col">
-                    <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                    <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required/>
+                    <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required/>
                     </div>
                     <div className="input-col">
-                    <input type="street" placeholder="Street" onChange={(e) => setStreet(e.target.value)}/>
-                    <input type="text" placeholder="Phone" onChange={(e) => setPhone(e.target.value)}/>
+                    <input type="street" placeholder="Street" onChange={(e) => setStreet(e.target.value)} required/>
+                    <input type="text" placeholder="Phone" onChange={(e) => setPhone(e.target.value)} required/>
                     </div>
                     <div className="input-col">
-                    <input type="apartment" placeholder="Apartment Number" onChange={(e) => setApartment(e.target.value)}/>
-                    <input type="postal" placeholder="Postal Code" onChange={(e) => setPostal(e.target.value)}/>
+                    <input type="apartment" placeholder="Apartment Number" onChange={(e) => setApartment(e.target.value)} required/>
+                    <input type="postal" placeholder="Postal Code" onChange={(e) => setPostal(e.target.value)} required/>
                     </div>
                     <div className="input-col">
-                    <input type="city" placeholder="City" onChange={(e) => setCity(e.target.value)}/>
-                    <input type="country" placeholder="Country" onChange={(e) => setCountry(e.target.value)}/>
+                    <input type="city" placeholder="City" onChange={(e) => setCity(e.target.value)} required/>
+                    <input type="country" placeholder="Country" onChange={(e) => setCountry(e.target.value)} required/>
                     </div>
                     <button type="submit" value="Submit">Register</button>
                 </form>
@@ -66,15 +65,15 @@ function Login({login, register}){
             <div className="form-container login-container">
                 <form onSubmit={onSubmit}>
                     <h1>Login Here</h1>
-                    <input id="name" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                    <input id="password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    <input id="name" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required/>
+                    <input id="password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required/>
                     <div className="options">
                         <div className="checkbox">
                             <input type="checkbox" name="checkbox" id="checkbox" />
                             <small>Remember me</small>
                         </div>
                         <div className="pass-link">
-                            <a href="">Forgot password</a>
+                            <div>Forgot password</div>
                         </div>
                     </div>
                     <button type="submit" value="Submit">Login</button>

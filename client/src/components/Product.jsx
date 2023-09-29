@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from "react";
 import { BiSearch, BiHeart, BiCart, BiRightArrowAlt } from "react-icons/bi";
 import {Link} from 'react-router-dom';
 

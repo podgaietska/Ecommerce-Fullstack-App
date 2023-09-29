@@ -1,9 +1,6 @@
 import React from "react";
-import {BiHeart, BiCart, BiSearch} from "react-icons/bi";
+import {BiHeart, BiCart} from "react-icons/bi";
 import {useLocation} from "react-router-dom";
-import { useEffect } from "react";
-import {BiLeftArrowAlt} from "react-icons/bi";
-import ProductList from "../components/ProductList";
 import Product from "../components/Product";
 
 function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts, addToWishlist, removeFromWishlist, productExistsInWishlist}) {

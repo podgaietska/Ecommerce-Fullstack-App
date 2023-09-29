@@ -2,8 +2,6 @@ import './App.css';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
-import About from './pages/About';
-import Blog from './pages/Blog';
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
@@ -144,6 +142,8 @@ const register = async(firstName, lastName, email, password, phone, street, apar
           const data = await res.json();
           setUser(data);
           localStorage.setItem('user', JSON.stringify(data));
+          getUserCart(data);
+          getUserWishlist(data);
       }
       fetchRegister();
   }catch (error){
@@ -207,6 +207,9 @@ const removeFromCart = async (product) => {
           cartItems: cart.filter((item) => item._id !== product._id),
         })
       });
+      if(!res.ok){
+        throw new Error(`An error occured: ${res.status}`);
+      }
     } catch (error){
       console.log(error);
     }
@@ -261,6 +264,9 @@ const removeFromWishlist = async (product) => {
           wishlistItems: cart.filter((item) => item._id !== product._id),
         })
       });
+      if(!res.ok){
+        throw new Error(`An error occured: ${res.status}`);
+      }
     } catch (error){
       console.log(error);
     }
@@ -299,8 +305,6 @@ const productExistsInWishlist = (product) => {
           <Route path="/" element={<Layout user={user} cart={cart} wishlist={wishlist} logout={logout}/>}>
             <Route index element={<Home />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="about" element={<About />} />
-            <Route path="blog" element={<Blog />} />
             <Route path="shop" element={<Shop allProducts={allProducts} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist} />} />
             <Route path="cart" element={<Cart cart={cart} removeFromCart={removeFromCart}/>} />
             <Route path="wishlist" element={<Wishlist wishlist={wishlist} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>} />

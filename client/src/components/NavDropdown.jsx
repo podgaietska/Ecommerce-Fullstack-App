@@ -1,11 +1,7 @@
 import React from "react";
-import {useState} from "react";
-import { Link, useLocation } from "react-router-dom";
-
-
+import { Link } from "react-router-dom";
 
 function NavDropdown({toggleDropdownMenu}) {
-
     return (
         <div className="nav-dropdown">
                 <ul className="dropdown-nav-list">

@@ -117,35 +117,35 @@ function Home() {
                 </div>
             </div>
             <div className="brands-top">
-                <Link to="/shop" state={{brand: 'undercover'}} className="brand">
+                <div className="brand">
                     <img src="/undercoverbanner.jpg" alt="" />
                     <div>
                         <p>UNDERCOVER</p>
                     </div>
-                </Link>
-                <Link to="/shop" className="brand">
+                </div>
+                <div className="brand">
                     <img src="/representBanner.jpg" alt="" />
                     <div>
                         <p>REPRESENT</p>
                     </div>
-                </Link>
+                </div>
             </div>
             <div className="brands-bottom">
                 <div className="brand text">
                     <p>Every week, we embark on a mission to showcase the most innovative brands with the hottest pieces. Our team scours the fashion landscape to bring you the latest and greatest from the world of style. From emerging designers pushing boundaries to well-established labels redefining trends, our curated selection reflects the ever-evolving nature of fashion. </p>
                 </div>
-                <Link to="/shop" className="brand">
+                <div className="brand">
                     <img src="/northfaceBanner.jpg" alt="" />
                     <div>
                         <p>NORTH FACE</p>
                     </div>
-                </Link>
-                <Link to="/shop" className="brand">
+                </div>
+                <div className="brand">
                     <img src="/palaceBanner.jpg" alt="" />
                     <div>
                         <p>PALACE</p>
                     </div>
-                </Link>
+                </div>
             </div>
         </div>
 {/* Promotion banner */}

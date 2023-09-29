@@ -1,7 +1,6 @@
 import React from "react";
 import ProductList from "../components/ProductList";
 import {useState, useEffect, useRef} from "react";
-import {useLocation} from "react-router-dom";
 
 function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     const [category, setCategory] = useState('all-products');
