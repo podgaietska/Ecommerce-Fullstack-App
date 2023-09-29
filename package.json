@@ -1,0 +1,24 @@
+{
+  "name": "e-commerce-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd server && npm install",
+    "start-server": "cd server && node app.js ",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/podgaietska/Ecommerce-Fullstack-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/podgaietska/Ecommerce-Fullstack-App/issues"
+  },
+  "homepage": "https://github.com/podgaietska/Ecommerce-Fullstack-App#readme"
+}

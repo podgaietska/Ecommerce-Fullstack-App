@@ -17,10 +17,6 @@ function App() {
   const [wishlist, setWishlist] = useState(localStorage.getItem('wishlist') ? JSON.parse(localStorage.getItem('wishlist')) : []);
   const [allProducts, setallProducts] = useState([]);
 
-  console.log(url);
-
-  console.log(allProducts);
-
   useEffect(() => {
     try {
       const fetchProducts = async () => {
