@@ -123,13 +123,13 @@ router.post('/register', asyncHandler(async(req, res) => {
         }
 
         //create cart
-        const cartResponse = await axios.post(`http://localhost:8000/api/cart/${user._id}`)
+        const cartResponse = await axios.post(`https://vektor-api.onrender.com/cart/${user._id}`)
         if(cartResponse.status !== 201){
             res.status(400).json({error: 'The cart cannot be created'})
         }
 
         //create wishlist
-        const wishlistResponse = await axios.post(`http://localhost:8000/api/wishlist/${user._id}`)
+        const wishlistResponse = await axios.post(`https://vektor-api.onrender.com/wishlist/${user._id}`)
         if(wishlistResponse.status !== 201){
             res.status(400).send({error: 'The wishlist cannot be created'})
         }

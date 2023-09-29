@@ -117,25 +117,6 @@ router.post('/', uploadOptions.single('image'), asyncHandler(async (req, res) =>
             res.status(500).json({success: false, message: error.message})
         }
     })
-
-    // let product = new Product({
-    //     name: req.body.name,
-    //     description: req.body.description,
-    //     image: `${basePath}${fileName}`,
-    //     brand: req.body.brand,
-    //     price: req.body.price,
-    //     category: req.body.category,
-    //     countInStock: req.body.countInStock,
-    //     isFeatured: req.body.isFeatured,
-    // });
-
-    // product = await product.save();
-
-    // if(!product){
-    //     res.status(500).json({success: false, message: 'The product cannot be created'})
-    // }
-    // res.status(201).json(product);
-    
 }));
 
 router.put('/:id', asyncHandler(async(req, res) => {
