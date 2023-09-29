@@ -179,6 +179,9 @@ const addToCart = async (product) => {
           cartItems: [...cart, product._id],
         })
       });
+      if(!res.ok){
+        throw new Error(`An error occured: ${res.status}`);
+    }
     } catch (error) {
       console.log(error);
     }
@@ -192,8 +195,25 @@ const addToCart = async (product) => {
 
 const removeFromCart = async (product) => {
   const answer = window.confirm('Are you sure you want to remove this item from your cart?');
+  const removeProductFromCart = async () => {
+    try{
+      const res = await fetch(`api/cart/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({
+          cartItems: cart.filter((item) => item._id !== product._id),
+        })
+      });
+    } catch (error){
+      console.log(error);
+    }
+  }
   if(answer){
     setCart(cart.filter((item) => item._id !== product._id));
+    removeProductFromCart();
     localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item._id !== product._id)));
   }
 }
@@ -213,8 +233,9 @@ const addToWishlist = async (product) => {
           wishlistItems: [...wishlist, product._id],
         })
       });
-      const data = await res.json();
-      console.log(data);
+      if(!res.ok){
+        throw new Error(`An error occured: ${res.status}`);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -228,8 +249,25 @@ const addToWishlist = async (product) => {
 
 const removeFromWishlist = async (product) => {
   const answer = window.confirm('Are you sure you want to remove this item from your wishlist?');
+  const removeProductFromWishlist = async () => {
+    try{
+      const res = await fetch(`api/wishlist/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({
+          wishlistItems: cart.filter((item) => item._id !== product._id),
+        })
+      });
+    } catch (error){
+      console.log(error);
+    }
+  }
   if(answer){
     setWishlist(wishlist.filter((item) => item._id !== product._id));
+    removeProductFromWishlist();
     localStorage.setItem('wishlist', JSON.stringify(wishlist.filter((item) => item._id !== product._id)));
   }
 }
