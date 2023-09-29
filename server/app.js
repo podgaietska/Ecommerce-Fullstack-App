@@ -54,6 +54,5 @@ app.get('/', (req,res) => {
 connectDb();   
 
 app.listen(8000, () => {
-    console.log(url);
     console.log("Server is running on port 8000");
 });
