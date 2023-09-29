@@ -10,8 +10,6 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [productsOnPage, setProductsOnPage] = useState([]);
     const topRef = useRef();
-    const {state} = useLocation();
-    const [brand, setBrand] = useState(state ? state.brand : null);
 
     useEffect(() => {
         topRef.current.scrollIntoView({ behavior: "smooth"});
@@ -59,15 +57,24 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
     }
 
     return (
-    <>
-        {brand !== null ? (
-            <div>
+        <div>
             <div className="section all-products">
-            <div className="top" ref={topRef}>
-                <h1>{brand.toUpperCase()}</h1>
+                <div className="top" ref={topRef}>
+                    {category !== "all-products" ? (<h1>{category.toUpperCase()}</h1>) : (<h1>ALL PRODUCTS</h1>)}
+                    <form>
+                        <select defaultValue={'all-products'} onChange={(e) => {setCategory(e.target.value)}}>
+                            <option value="all-products">All Products</option>
+                            <option value="jackets">Jackets</option>
+                            <option value="t-shirts">T-shirts</option>
+                            <option value="hoodies">Hoodies</option>
+                            <option value="crewnecks">Crewnecks</option>
+                            <option value="pants">Pants</option>
+                        </select>
+                        <span><i className="bx bx-chevron-down"></i></span>
+                    </form>
+                </div>
+                {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
             </div>
-            {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
-        </div>
             <div className="pagination">
                 <div className="container">
                     {pages.map((page, index) => (
@@ -76,35 +83,6 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
                 </div>
             </div>
         </div>
-        ) : (
-            <div>
-            <div className="section all-products">
-            <div className="top" ref={topRef}>
-                {category !== "all-products" ? (<h1>{category.toUpperCase()}</h1>) : (<h1>ALL PRODUCTS</h1>)}
-                <form>
-                    <select defaultValue={'all-products'} onChange={(e) => {setCategory(e.target.value)}}>
-                        <option value="all-products">All Products</option>
-                        <option value="jackets">Jackets</option>
-                        <option value="t-shirts">T-shirts</option>
-                        <option value="hoodies">Hoodies</option>
-                        <option value="crewnecks">Crewnecks</option>
-                        <option value="pants">Pants</option>
-                    </select>
-                    <span><i className="bx bx-chevron-down"></i></span>
-                </form>
-            </div>
-            {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
-        </div>
-            <div className="pagination">
-                <div className="container">
-                    {pages.map((page, index) => (
-                        <span onClick={() => changePage(index)}>{index + 1}</span>
-                    ))}
-                </div>
-            </div>
-        </div>
-        )}
-    </>
     );
 }
 

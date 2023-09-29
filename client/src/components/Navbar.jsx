@@ -3,11 +3,16 @@ import {Link} from 'react-router-dom';
 import { BiUser, BiHeart, BiCart } from "react-icons/bi";
 import ProfileDropdown from './ProfileDropdown';
 import { useState } from 'react';
+import useMediaQuery from '../hooks/useMediaQuery';
+import NavDropdown from './NavDropdown';
 
 function Navbar({user, cart, wishlist, logout}){
     const [isShown, setIsShown] = useState(false);
+    const [dropdownMenu, setDropdownMenu] = useState(false);
     const [stays, setStays] = useState(false);
     const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
+
+    const isWindow = useMediaQuery("(min-width: 800px)");
 
     const handleMouseEnter = (e) => {
         setIsShown(true);
@@ -23,6 +28,10 @@ function Navbar({user, cart, wishlist, logout}){
 
     const handleMouseOut = () => {
         setStays(false);
+    };
+
+    const toggleDropdownMenu = () => {
+        setDropdownMenu(!dropdownMenu);
     };
 
     return (
@@ -41,11 +50,15 @@ function Navbar({user, cart, wishlist, logout}){
             <div className = "nav-center container d-flex">
                 <h1>.vektor</h1>
 
-                <ul className = "nav-list d-flex">
-                    <li className="nav-item"><Link to="/">HOME</Link></li>
-                    <li className="nav-item"><Link to="/shop">SHOP</Link></li>
-                    <li className="nav-item"><Link to="/contact">CONTACT</Link></li>
-                </ul>
+                {isWindow ? (
+                    <ul className = "nav-list d-flex">
+                        <li className="nav-item"><Link to="/">HOME</Link></li>
+                        <li className="nav-item"><Link to="/shop">SHOP</Link></li>
+                        <li className="nav-item"><Link to="/contact">CONTACT</Link></li>
+                    </ul>
+                ) : (
+                    <p onClick={toggleDropdownMenu}>&#9776;</p>
+                )}
 
                 <div className="nav-icons d-flex">
                     <Link to={user ? "/user-profile" : "/login"} className="icon" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}><BiUser /></Link>
@@ -59,6 +72,7 @@ function Navbar({user, cart, wishlist, logout}){
                 {(isShown || stays) && <div className="dropdown-menu" onMouseEnter={handleMouseStay} onMouseLeave={handleMouseOut}>
                         <ProfileDropdown logout={logout}/>
                     </div>}
+                {dropdownMenu && <NavDropdown toggleDropdownMenu={toggleDropdownMenu}/>}
             </div>
         </div>
         </div>

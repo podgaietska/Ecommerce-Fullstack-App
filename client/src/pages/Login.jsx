@@ -74,16 +74,10 @@ function Login({login, register}){
                             <small>Remember me</small>
                         </div>
                         <div className="pass-link">
-                            <a href="#">Forgot password</a>
+                            <a href="">Forgot password</a>
                         </div>
                     </div>
                     <button type="submit" value="Submit">Login</button>
-                    <span>or use your account</span>
-                    <div className="social-container">
-                        <a href="#"><i className="bx bxl-facebook-square"></i></a>
-                        <a href="#"><i className="bx bxl-google"></i></a>
-                        <a href="#"><i className="bx bxl-linkedin"></i></a>
-                    </div>
                 </form>
             </div>
             <div className="overlay-container">

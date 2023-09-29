@@ -198,16 +198,6 @@ const removeFromCart = async (product) => {
   }
 }
 
-const productExistsInCart = (product) => {
-  const productInCart = cart.find((productInCart) => productInCart._id === product._id);
-        if (productInCart) {
-            return true;
-        }
-        else{
-            return false;
-        }
-}
-
 const addToWishlist = async (product) => {
   const inWishlist = wishlist.find((item) => item._id === product._id);
   const addProductToWishlist = async () => {
@@ -242,6 +232,16 @@ const removeFromWishlist = async (product) => {
     setWishlist(wishlist.filter((item) => item._id !== product._id));
     localStorage.setItem('wishlist', JSON.stringify(wishlist.filter((item) => item._id !== product._id)));
   }
+}
+
+const productExistsInCart = (product) => {
+  const productInCart = cart.find((productInCart) => productInCart._id === product._id);
+        if (productInCart) {
+            return true;
+        }
+        else{
+            return false;
+        }
 }
 
 const productExistsInWishlist = (product) => {

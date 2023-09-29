@@ -52,29 +52,19 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
                 </div>
             </div>
             <div className="right">
-                <span>{product.brand.toUpperCase()}</span>
-                <h1>{product.name}</h1>
-                <div className="price">${product.price}</div>
-                <form>
-                    <div>
-                        <select defaultValue={'default'}>
-                            <option value="default" disabled>
-                                Select Size
-                            </option>
-                            <option value="1">XS</option>
-                            <option value="2">S</option>
-                            <option value="3">M</option>
-                            <option value="4">L</option>
-                        </select>
-                        <span><i className="bx bx-chevron-down"></i></span>
-                    </div>
-                </form>
-                <ul className="action-btns">
-                    <li className={productExistsInCart(product) ? "active" : ""} onClick={handleProductInCart}><BiCart /></li>
-                    <li className={productExistsInWishlist(product) ? "active" : ""} onClick={handleProductInWishlist}><BiHeart /></li>
-                </ul>
-                <h3>Product Decription</h3>
-                <p>{product.description}</p>
+                <div className="info">
+                    <span>{product.brand.toUpperCase()}</span>
+                    <h1>{product.name}</h1>
+                    <div className="price">${product.price}</div>
+                    <ul className="action-btns">
+                        <li className={productExistsInCart(product) ? "active" : ""} onClick={handleProductInCart}><BiCart /></li>
+                        <li className={productExistsInWishlist(product) ? "active" : ""} onClick={handleProductInWishlist}><BiHeart /></li>
+                    </ul>
+                </div>
+                <div className="product-description">
+                    <h3>Product Decription</h3>
+                    <p>{product.description}</p>
+                </div>
             </div>
         </div>
     </div>

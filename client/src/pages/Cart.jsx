@@ -9,13 +9,13 @@ function Cart({cart, removeFromCart}) {
         setCartTotal(cart.reduce((total, product) => total + product.price, 0));
     }, [cart]);
 
-    return(<div>
+    return(
+    <div>
         <div className="page-header">
             <h2>.shopping cart</h2>
         </div>
-        {/* Cart */}
         {cart.length !==0 ? (
-            <div className="container cart">
+        <div className="container cart">
             <table width="100%">
                 <thead>
                     <tr>
@@ -33,8 +33,6 @@ function Cart({cart, removeFromCart}) {
             </table>
         </div>)
         : <div className="empty-cart">Oh no! Looks like your cart is empty...</div>}
-
-        {/* Payment */}
         <div className="cart-payment">
             <div className="coupon">
                 <h3>Apply Coupon</h3>
