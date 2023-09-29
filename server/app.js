@@ -49,7 +49,7 @@ app.use(errorHandler);
 
 //connection
 
-connectDb();    
+connectDb();   
 
 app.listen(8000, () => {
     console.log(url);

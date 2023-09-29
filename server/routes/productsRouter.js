@@ -5,12 +5,23 @@ const Category = require('../models/categoryModel');
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
 const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+
+const cloud_name = process.env.CLOUD_NAME;
+const api_key = process.env.CLOUD_API_KEY;
+const api_secret = process.env.CLOUD_API_SECR;
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
     'image/jpeg': 'jpeg',
     'image/jpg': 'jpg',
 }
+
+cloudinary.config({
+    cloud_name: cloud_name,
+    api_key: api_key,
+    api_secret: api_secret,
+});
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -79,26 +90,51 @@ router.post('/', uploadOptions.single('image'), asyncHandler(async (req, res) =>
         throw new Error('No image in the request')
     }
 
-    const fileName = req.file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
+    cloudinary.uploader.upload(file.path, async (error, result) => {
+        if (error){
+            res.status(500).json({success: false, message: error.message});
+            return;
+        }
 
-    let product = new Product({
-        name: req.body.name,
-        description: req.body.description,
-        image: `${basePath}${fileName}`,
-        brand: req.body.brand,
-        price: req.body.price,
-        category: req.body.category,
-        countInStock: req.body.countInStock,
-        isFeatured: req.body.isFeatured,
-    });
+        const product = new Product({
+            name: req.body.name,
+            description: req.body.description,
+            image: result.secure_url,
+            brand: req.body.brand,
+            price: req.body.price,
+            category: req.body.category,
+            countInStock: req.body.countInStock,
+            isFeatured: req.body.isFeatured,
+        });
 
-    product = await product.save();
+        try{
+            const newProduct = await product.save();
+            if(!newProduct){
+                res.status(500).json({success: false, message: 'The product cannot be created'})
+            }
+            res.status(201).json(newProduct);
+        } catch(error){
+            res.status(500).json({success: false, message: error.message})
+        }
+    })
 
-    if(!product){
-        res.status(500).json({success: false, message: 'The product cannot be created'})
-    }
-    res.status(201).json(product);
+    // let product = new Product({
+    //     name: req.body.name,
+    //     description: req.body.description,
+    //     image: `${basePath}${fileName}`,
+    //     brand: req.body.brand,
+    //     price: req.body.price,
+    //     category: req.body.category,
+    //     countInStock: req.body.countInStock,
+    //     isFeatured: req.body.isFeatured,
+    // });
+
+    // product = await product.save();
+
+    // if(!product){
+    //     res.status(500).json({success: false, message: 'The product cannot be created'})
+    // }
+    // res.status(201).json(product);
     
 }));
 
