@@ -12,7 +12,7 @@ function UserProfile({user}) {
         try{
             const fetchUserInfo = async () => {
                 console.log('fetching user info')
-                const res = await fetch(`api/users/${user.id}`, {
+                const res = await fetch(`https://vektor-api.onrender.com/users/${user.id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function UserProfile({user}) {
                 zip: zip,
                 country: country,
             };
-            const res = await fetch(`/api/users/${user.id}`, {
+            const res = await fetch(`https://vektor-api.onrender.com/users/${user.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     try {
       const fetchProducts = async () => {
-        const res = await fetch('api/products', {
+        const res = await fetch('https://vektor-api.onrender.com/products', {
           method: 'GET',
           header: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ function App() {
     const userData = data;
     try {
       const fetchCart = async () => {
-        const res = await fetch(`api/cart/${userData.id}`, {
+        const res = await fetch(`https://vektor-api.onrender.com/cart/${userData.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ function App() {
     const userData = data;
     try {
       const fetchWishlist = async () => {
-        const res = await fetch(`api/wishlist/${userData.id}`, {
+        const res = await fetch(`https://vektor-api.onrender.com/wishlist/${userData.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ function App() {
   const login = async(email, password) => {
     try{
         const fetchLogin = async () => {
-            const res = await fetch('api/users/login', {
+            const res = await fetch('https://vektor-api.onrender.com/users/login', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -120,7 +120,7 @@ function App() {
 const register = async(firstName, lastName, email, password, phone, street, apartment, postal, city, country) => {
   try{
       const fetchRegister = async () => {
-          const res = await fetch('api/users/register', {
+          const res = await fetch('https://vektor-api.onrender.com/users/register', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -169,7 +169,7 @@ const addToCart = async (product) => {
   const inCart = cart.find((item) => item._id === product._id);
   const addProductToCart = async () => {
     try {
-      const res = await fetch(`api/cart/${user.id}`, {
+      const res = await fetch(`https://vektor-api.onrender.com/cart/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ const removeFromCart = async (product) => {
   const answer = window.confirm('Are you sure you want to remove this item from your cart?');
   const removeProductFromCart = async () => {
     try{
-      const res = await fetch(`api/cart/${user.id}`, {
+      const res = await fetch(`https://vektor-api.onrender.com/cart/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -226,7 +226,7 @@ const addToWishlist = async (product) => {
   const addProductToWishlist = async () => {
     console.log('adding to wishlist');
     try {
-      const res = await fetch(`api/wishlist/${user.id}`, {
+      const res = await fetch(`https://vektor-api.onrender.com/wishlist/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -254,7 +254,7 @@ const removeFromWishlist = async (product) => {
   const answer = window.confirm('Are you sure you want to remove this item from your wishlist?');
   const removeProductFromWishlist = async () => {
     try{
-      const res = await fetch(`api/wishlist/${user.id}`, {
+      const res = await fetch(`https://vektor-api.onrender.com/wishlist/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
