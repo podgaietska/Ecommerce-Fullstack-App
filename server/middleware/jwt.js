@@ -9,19 +9,20 @@ const authJwt = () => {
     }).unless({
         path: [
             {url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS']},
-            {url: /\/api\/products(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/products
-            {url: /\/api\/categories(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
-            {url: /\/api\/cart(.*)/, methods: ['POST', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
-            {url: /\/api\/wishlist(.*)/, methods: ['POST', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
-            '/api/users/login',
-            '/api/users/register'
+            {url: /\/products(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/products
+            {url: /\/categories(.*)/, methods: ['GET', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
+            {url: /\/cart(.*)/, methods: ['POST', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
+            {url: /\/wishlist(.*)/, methods: ['POST', 'OPTIONS']}, // allow GET and OPTIONS for /api/categories
+            '/users/login',
+            '/users/register',
+            '/'
         ]
     })
 }
 
 async function isRevoked(req, token){
     const url =req.url;
-    const urlPattern = /\/api\/[^/]+\/([^/]+)\/?$/;
+    const urlPattern = /\/[^/]+\/([^/]+)\/?$/;
 
     const matches = urlPattern.exec(url);
     if(matches && matches[1]){

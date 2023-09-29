@@ -7,8 +7,10 @@ const cors = require('cors');
 const authJwt = require('./middleware/jwt');
 const errorHandler = require('./middleware/errorHandler');
 
-app.use(cors());
-app.options('*', cors());
+const corsOptions = {
+    origin: "https://illustrious-pony-215af5.netlify.app"
+}
+app.use(cors(corsOptions));
 
 //middleware
 app.use(express.json());
@@ -35,20 +37,20 @@ const usersRouter = require('./routes/usersRouter');
 const cartRouter = require('./routes/cartRouter');
 const wishlistRouter = require('./routes/wishlistRouter');
 
-const url = process.env.API_URL;
-
-app.use(`${url}/products`, productRouter);
-app.use(`${url}/categories`, categoriesRouter);
-app.use(`${url}/orders`, ordersRouter);
-app.use(`${url}/users`, usersRouter);
-app.use(`${url}/cart`, cartRouter);
-app.use(`${url}/wishlist`, wishlistRouter);
+app.use('/products', productRouter);
+app.use('/categories', categoriesRouter);
+app.use('/orders', ordersRouter);
+app.use('/users', usersRouter);
+app.use('/cart', cartRouter);
+app.use('/wishlist', wishlistRouter);
 
 app.use(errorHandler);
 
+app.get('/', (req,res) => {
+    res.status(201).json({success: "Backend is running"});
+})
 
 //connection
-
 connectDb();   
 
 app.listen(8000, () => {
