@@ -1,10 +1,17 @@
 import React from "react";
 import { BiMap, BiEnvelope, BiPhone, BiTime } from "react-icons/bi";
+import {useRef, useEffect} from "react";
+
 function Contact() {
+    const topRef = useRef();
+
+    useEffect(() => {
+        topRef.current.scrollIntoView({ behavior: "smooth"});
+    }, []);
 
     return (
         <div>
-            <div className="page-header">
+            <div className="page-header" ref={topRef}>
                 <h2>.contact</h2>
             </div>
             <div className="contact-container">

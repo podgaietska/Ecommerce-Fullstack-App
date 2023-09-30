@@ -10,6 +10,7 @@ import ProductDetails from './pages/ProductDetails';
 import UserProfile from './pages/userProfile';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import {toast} from 'react-toastify';
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null);
@@ -52,7 +53,9 @@ function App() {
           },
         });
         if (!res.ok){
-          throw new Error(`An error occured: ${res.status}`);
+          const response = await res.json();
+          toast.warn(response.error);
+            return
         }
         const data = await res.json();
         console.log(data);
@@ -77,7 +80,9 @@ function App() {
           },
         });
         if (!res.ok){
-          throw new Error(`An error occured: ${res.status}`);
+          const response = await res.json();
+          toast.warn(response.error);
+            return
         }
         const data = await res.json();
         console.log(data);
@@ -102,7 +107,9 @@ function App() {
                 })
             });
             if(!res.ok){
-                throw new Error(`An error occured: ${res.status}`);
+              const response = await res.json();
+              toast.error(response.error);
+              return;
             }
             const data = await res.json();
             setUser(data);
@@ -137,7 +144,9 @@ const register = async(firstName, lastName, email, password, phone, street, apar
               })
           });
           if(!res.ok){
-              throw new Error(`An error occured: ${res.status}`);
+            const response = await res.json();
+            toast.error(response.error);
+              return;
           }
           const data = await res.json();
           setUser(data);
@@ -180,7 +189,9 @@ const addToCart = async (product) => {
         })
       });
       if(!res.ok){
-        throw new Error(`An error occured: ${res.status}`);
+        const response = await res.json();
+          toast.warn(response.error);
+            return
     }
     } catch (error) {
       console.log(error);
@@ -208,7 +219,9 @@ const removeFromCart = async (product) => {
         })
       });
       if(!res.ok){
-        throw new Error(`An error occured: ${res.status}`);
+        const response = await res.json();
+          toast.warn(response.error);
+            return
       }
     } catch (error){
       console.log(error);
@@ -237,7 +250,9 @@ const addToWishlist = async (product) => {
         })
       });
       if(!res.ok){
-        throw new Error(`An error occured: ${res.status}`);
+        const response = await res.json();
+          toast.warn(response.error);
+            return
       }
     } catch (error) {
       console.log(error);
@@ -265,7 +280,9 @@ const removeFromWishlist = async (product) => {
         })
       });
       if(!res.ok){
-        throw new Error(`An error occured: ${res.status}`);
+        const response = await res.json();
+          toast.warn(response.error);
+            return
       }
     } catch (error){
       console.log(error);

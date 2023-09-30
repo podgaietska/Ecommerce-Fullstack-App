@@ -1,10 +1,10 @@
 import React from "react";
 import {useEffect, useState} from "react";
 import UserEditWindow from "../components/UserEditWindow";
+import { toast } from "react-toastify";
 
 function UserProfile({user}) {
     const [userInfo, setUserInfo] = useState();
-    const [userExists, setUserExists] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
     const [showEditor, setShowEditor] = useState(false);
     const [field, setField] = useState('field1');
 
@@ -20,7 +20,9 @@ function UserProfile({user}) {
                     },
                 });
                 if(!res.ok){
-                    throw new Error(`An error occured: ${res.status}`);
+                    const response = await res.json();
+                    toast.warn(response.error);
+                    return
                 }
                 const data = await res.json();
                 setUserInfo(data);
@@ -63,7 +65,9 @@ function UserProfile({user}) {
             });
 
             if(!res.ok){
-                throw new Error(`An error occured: ${res.status}`);
+                const response = await res.json();
+                toast.error(response.error);
+                return
             }
             const data = await res.json();
             setUserInfo(data);

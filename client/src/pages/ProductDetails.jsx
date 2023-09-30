@@ -2,10 +2,16 @@ import React from "react";
 import {BiHeart, BiCart} from "react-icons/bi";
 import {useLocation} from "react-router-dom";
 import Product from "../components/Product";
+import {useRef, useEffect} from "react";
 
 function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
     const {state} = useLocation();
     const product = state.product;
+    const topRef = useRef();
+
+    useEffect(() => {
+        topRef.current.scrollIntoView({ behavior: "smooth"});
+    }, [product]);
 
     const handleProductInCart = () => {
         if (productExistsInCart(product)){
@@ -41,7 +47,7 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
 
     console.log(selectedRelatedProducts);
     return (<div> 
-    <div className="product-detail">
+    <div className="product-detail" ref={topRef}>
         <div className="details container">
             <div className="left image-container">
                 <div className="main">

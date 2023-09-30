@@ -1,6 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login({login, register}){
     const [email, setEmail] = useState('');
@@ -15,6 +16,10 @@ function Login({login, register}){
     const [country, setCountry] = useState('');
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (user) navigate('/user-profile');
+    }, [user]);
+
     const switchLogin = () => {
         const container = document.getElementById('container');
         container.classList.toggle('right-panel-active');
@@ -22,14 +27,16 @@ function Login({login, register}){
 
     const onSubmit = (e) => {
         e.preventDefault();
-        login(email, password)
-        navigate('/user-profile');
+        login(email, password);
     }
 
     const onRegister = (e) => {
         e.preventDefault();
-        register(firstName, lastName, email, password, phone, street, apartment, postal, city, country);
-        navigate('/user-profile');
+        toast.promise(register(firstName, lastName, email, password, phone, street, apartment, postal, city, country), {
+            pending: 'Registering...',
+            success: 'Registered successfully',
+            error: 'Error registering'
+        });    
     }
 
     return (
