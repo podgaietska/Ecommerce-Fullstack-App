@@ -5,9 +5,7 @@ Vektor is a Full-stack MERN (MongoDB, Express.js, React, Node.js) Web Applicatio
 
 
 ## 🙈  Sneak Peak
-<div align="center">
-  <img src="https://res.cloudinary.com/dvidz0oub/image/upload/v1696054819/ezgif.com-video-to-gif_blif69.gif" alt="gif">
-</div>
+
 
 ## 💻  Tech Stack
 **Frontend:**
