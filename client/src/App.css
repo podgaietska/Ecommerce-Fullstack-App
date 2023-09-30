@@ -796,6 +796,18 @@ li{
 
 /* All Products */
 
+.empty-shop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  font-size: 1.5rem;
+  color: var(--greytext);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  margin-bottom: 2rem;
+}
+
 .section.all-products{
   width: 100%;
 }
