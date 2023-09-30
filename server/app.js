@@ -7,15 +7,32 @@ const cors = require('cors');
 const authJwt = require('./middleware/jwt');
 const errorHandler = require('./middleware/errorHandler');
 
-const corsOptions = {
-    origin: "https://main--illustrious-pony-215af5.netlify.app" || "https://illustrious-pony-215af5.netlify.app",
-}
-app.use(cors(corsOptions));
+const allowedOrigins = [
+    "https://main--illustrious-pony-215af5.netlify.app",
+    "https://illustrious-pony-215af5.netlify.app",
+];
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://illustrious-pony-215af5.netlify.app');
-    next();
-  });
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin) {
+            callback(null, true);
+            return;
+        }
+
+        const isAllowed = allowedOrigins.some(allowedOrigin => {
+            const regex = new RegExp(`^${allowedOrigin}(/|$)`);
+            return regex.test(origin);
+        });
+
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
+
+app.use(cors(corsOptions));
 
 //middleware
 app.use(express.json());
