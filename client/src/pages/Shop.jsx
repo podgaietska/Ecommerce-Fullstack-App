@@ -72,7 +72,11 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
                         <span><i className="bx bx-chevron-down"></i></span>
                     </form>
                 </div>
+                {allProducts.length === 0 ? (
+                <div className="empty-shop">Loading products... Sorry, this may take a minut</div>
+                ) : (  <>
                 {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist} user={user}/>}
+                </>)}            
             </div>
             <div className="pagination">
                 <div className="container">
