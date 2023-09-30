@@ -12,6 +12,11 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://illustrious-pony-215af5.netlify.app');
+    next();
+  });
+
 //middleware
 app.use(express.json());
 app.use(morgan('tiny'));
