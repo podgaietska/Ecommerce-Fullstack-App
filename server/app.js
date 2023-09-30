@@ -8,7 +8,7 @@ const authJwt = require('./middleware/jwt');
 const errorHandler = require('./middleware/errorHandler');
 
 const corsOptions = {
-    origin: "https://illustrious-pony-215af5.netlify.app" || "https://main--illustrious-pony-215af5.netlify.app",
+    origin: "https://main--illustrious-pony-215af5.netlify.app" || "https://illustrious-pony-215af5.netlify.app",
 }
 app.use(cors(corsOptions));
 
