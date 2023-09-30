@@ -9,7 +9,8 @@ router.get('/:id', async(req, res) => {
     const cart = await Cart.findOne({user: req.params.id})
 
     if(!cart){
-        res.status(500).json({success: false})
+        res.status(500).json({error: "Could not fetch user's cart"})
+        return
     }
 
     const cartItems = await Promise.all(cart.cartItems.map(async (cartItem) => {
@@ -17,7 +18,7 @@ router.get('/:id', async(req, res) => {
         return product;
     }))
 
-    res.send(cartItems)
+    res.json(cartItems)
 })
 
 //will create a new cart for a user on registration
@@ -31,6 +32,7 @@ router.post('/:id', asyncHandler(async(req, res) => {
     const usedCart = await Cart.findOne({user: req.params.id})
     if(usedCart){
         res.status(400).json({error: 'A cart for this user already exists'})
+        return
     }else{
         let cart = new Cart({
             user: req.params.id,
@@ -41,7 +43,8 @@ router.post('/:id', asyncHandler(async(req, res) => {
         cart = await cart.save();
     
         if(!cart){
-            res.status(500).json({success: false, message: 'The cart cannot be created'})
+            res.status(500).json({error: 'The cart cannot be created'})
+            return
         }
         res.status(201).json(cart.cartItems);
     }
@@ -51,7 +54,8 @@ router.put('/:id', asyncHandler(async(req, res) => {
     //validate cart exists
     const usedCart = await Cart.findOne({user: req.params.id})
     if(!usedCart){
-        res.status(400).json({error: 'A cart for this user already exists'})
+        res.status(400).json({error: 'Could not find a cart for this user'})
+        return
     }
 
     const totalPrices = await Promise.all(req.body.cartItems.map(async (cartItem) => {
@@ -72,24 +76,10 @@ router.put('/:id', asyncHandler(async(req, res) => {
     )
 
     if (!cart){
-        res.status(404).send('The cart does not exist')
+        res.status(404).json({error: 'The cart for this user does not exist'})
+        return
     }
     res.status(201).json(cart.cartItems);
 }))
-
-router.delete('/:id', (req, res) => {
-    Order.findByIdAndRemove(req.params.id).then( async order => {
-        if(order){
-            await order.orderItems.map(async orderItem => {
-                await OrderItem.findByIdAndRemove(orderItem)
-            })
-            res.status(200).json({success: true, message: 'the order is deleted'})
-        } else {
-            res.status(404).json({success: false, message: 'order not found'})
-        }
-    }).catch(err => {
-        res.status(400).json({success: false, error: err})
-    })
-})
 
 module.exports = router;

@@ -9,8 +9,8 @@ router.get('/:id', async(req, res) => {
     const wishlist = await Wishlist.findOne({user: req.params.id})
 
     if(!wishlist){
-        res.status(500).json({success: false})
-        throw new Error('Wishlist not found')
+        res.status(500).json({error: "Could not fetch user's wishlist"})
+        return
     }
 
     const wishlistItems = await Promise.all(wishlist.wishlistItems.map(async (wishlistItem) => {
@@ -18,7 +18,7 @@ router.get('/:id', async(req, res) => {
         return product;
     }))
 
-    res.send(wishlistItems)
+    res.json(wishlistItems)
 })
 
 //will create a new wishlist for a user on registration
@@ -33,7 +33,7 @@ router.post('/:id', asyncHandler(async(req, res) => {
     const usedWishlist = await Wishlist.findOne({user: req.params.id})
     if(usedWishlist){
         res.status(400).json({error: 'A wishlist for this user already exists'})
-        throw new Error('Wishlist for this user already exists')
+        return
     } else{
         let wishlist = new Wishlist({
             user: req.params.id,
@@ -43,7 +43,8 @@ router.post('/:id', asyncHandler(async(req, res) => {
         wishlist = await wishlist.save();
     
         if(!wishlist){
-            res.status(500).json({success: false, message: 'The wishlist cannot be created'})
+            res.status(500).json({error: 'The wishlist cannot be created'})
+            return
         }
         res.status(201).json(wishlist.wishlistItems);
     }
@@ -66,24 +67,10 @@ router.put('/:id', asyncHandler(async(req, res) => {
     )
 
     if (!wishlist){
-        res.status(404).send('The cart does not exist')
+        res.status(404).json({error: 'The wishlist does not exist'})
+        return
     }
     res.status(201).json(wishlist.wishlistItems);
 }))
-
-router.delete('/:id', (req, res) => {
-    Order.findByIdAndRemove(req.params.id).then( async order => {
-        if(order){
-            await order.orderItems.map(async orderItem => {
-                await OrderItem.findByIdAndRemove(orderItem)
-            })
-            res.status(200).json({success: true, message: 'the order is deleted'})
-        } else {
-            res.status(404).json({success: false, message: 'order not found'})
-        }
-    }).catch(err => {
-        res.status(400).json({success: false, error: err})
-    })
-})
 
 module.exports = router;

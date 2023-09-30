@@ -10,18 +10,19 @@ router.get('/', asyncHandler(async(req, res) => {
     const userList = await User.find().select('name phone email'); // only display name, phone and email
 
     if(!userList){
-        res.status(500).json({success: false})
+        res.status(500).json({success: false});
+        return
     }
 
-    res.send(userList)
+    res.status(200).json(userList)
 }))
 
 router.get('/:id', asyncHandler(async(req,res) => {
     const user = await User.findById(req.params.id).select('-passwordHash'); // -passwordHash to not display passwordHash
 
     if(!user){
-        res.status(404)
-        throw new Error('The user with the given ID was not found')
+        res.status(404).json({error: 'The user with the given ID was not found'})
+        return
     }
 
     res.status(200).json(user);
@@ -44,7 +45,8 @@ router.post('/', asyncHandler(async(req, res) => {
     user = await user.save();
 
     if (!user){
-        res.status(404).send('The user cannot be created')
+        res.status(404).json({error: 'The user cannot be created'})
+        return
     }
     
     res.status(201).json(user);
@@ -53,7 +55,8 @@ router.post('/', asyncHandler(async(req, res) => {
 router.put('/:id', asyncHandler(async(req, res) => {
     const user = await User.findById(req.params.id)
     if(!user){
-        res.status(404).send('The user cannot be found')
+        res.status(404).json({error: 'The user cannot be found'})
+        return
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -74,6 +77,10 @@ router.put('/:id', asyncHandler(async(req, res) => {
         {new: true}
     )
 
+    if(!updatedUser){
+        res.status(404).json({error: 'The user cannot be updated'})
+        return
+    }
     res.status(200).json(updatedUser);
 }));
 
@@ -82,7 +89,8 @@ router.post('/login', asyncHandler(async(req, res) => {
     const secret = process.env.JWT_SECRET;
 
     if(!user){
-        res.status(400).send('The user not found')
+        res.status(400).json({error: 'The user was not found. Please try a different email'})
+        return
     }
 
     if(user && bcrypt.compareSync(req.body.password, user.passwordHash)){
@@ -96,9 +104,8 @@ router.post('/login', asyncHandler(async(req, res) => {
         )
         res.status(200).json({id: user._id, token: token})
     } else {
-        res.status(400).send('Password is wrong')
+        res.status(400).json({error: 'Password is incorrect. Please try again'})
     }
-
 }));
 
 router.post('/register', asyncHandler(async(req, res) => {
@@ -120,18 +127,21 @@ router.post('/register', asyncHandler(async(req, res) => {
 
         if (!user){
             res.status(400).json({error: 'The user cannot be created'})
+            return
         }
 
         //create cart
         const cartResponse = await axios.post(`https://vektor-api.onrender.com/cart/${user._id}`)
         if(cartResponse.status !== 201){
             res.status(400).json({error: 'The cart cannot be created'})
+            return
         }
 
         //create wishlist
         const wishlistResponse = await axios.post(`https://vektor-api.onrender.com/wishlist/${user._id}`)
         if(wishlistResponse.status !== 201){
             res.status(400).send({error: 'The wishlist cannot be created'})
+            return
         }
 
         //generate jwt token
