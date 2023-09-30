@@ -30,7 +30,7 @@ Vektor is a Full-stack MERN (MongoDB, Express.js, React, Node.js) Web Applicatio
 **Image Management:**
 Cloudinary API
 
-## Web App Deployment 🚀
+## 🚀 Web App Deployment
 Website Application's client side is hosted on Netlify, whereas the application's server is hosted on Render. 
 
 You can access the complete ecommerce experience through the link below. Simply copy the url and enter it into your browser to explore the products, create an account and begin adding items to your cart or wishlist:
@@ -39,7 +39,7 @@ You can access the complete ecommerce experience through the link below. Simply 
 https://illustrious-pony-215af5.netlify.app
 ```
 
-## Quick Start 🏃
+## 🏃 Quick Start
 
 To quickly set up and launch the Ecommerce Client project on your local machine, follow the steps below:
 
