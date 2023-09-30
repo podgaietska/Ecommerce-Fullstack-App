@@ -3,8 +3,9 @@ import {BiHeart, BiCart} from "react-icons/bi";
 import {useLocation} from "react-router-dom";
 import Product from "../components/Product";
 import {useRef, useEffect} from "react";
+import { toast } from 'react-toastify';
 
-function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
+function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProducts, addToWishlist, removeFromWishlist, productExistsInWishlist, user}) {
     const {state} = useLocation();
     const product = state.product;
     const topRef = useRef();
@@ -14,24 +15,34 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
     }, [product]);
 
     const handleProductInCart = () => {
-        if (productExistsInCart(product)){
-            removeFromCart(product);
-        }
-        else{
-            if (productExistsInWishlist(product)){
-                window.alert("Product added to cart!");
+        if (user !== null){
+            if (productExistsInCart(product)){
+                removeFromCart(product);
             }
-            addToCart(product);
-        }        
+            else{
+                if (productExistsInWishlist(product)){
+                    window.alert("Product added to cart!");
+                }
+                addToCart(product);
+            }
+        }  
+        else{
+            toast.warn("You're not logged in. Please log in to add this product to your cart.")
+        }      
     };
 
     const handleProductInWishlist = () => {
-        if (productExistsInWishlist(product)){
-            removeFromWishlist(product);
-        }
+        if (user !== null){
+            if (productExistsInWishlist(product)){
+                removeFromWishlist(product);
+            }
+            else{
+                addToWishlist(product);
+            } 
+        }   
         else{
-            addToWishlist(product);
-        }        
+            toast.warn("You're not logged in. Please log in to add this product to your wishlist.")
+        }    
     };
 
     function shuffleArray(array) {
@@ -78,7 +89,7 @@ function ProductDetails({addToCart, removeFromCart, productExistsInCart, allProd
         </div>
         <div className="product-center">
             {selectedRelatedProducts.map((product) => (
-                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>
+                <Product product={product} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist} user={user}/>
             ))}
         </div>
     </div>

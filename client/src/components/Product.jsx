@@ -1,27 +1,38 @@
 import { BiSearch, BiHeart, BiCart, BiRightArrowAlt } from "react-icons/bi";
 import {Link} from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-function Product({product, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
+function Product({product, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist, user}) {
     
     const handleProductInCart = () => {
-        if (productExistsInCart(product)){
-            removeFromCart(product);
-        }
-        else{
-            if (productExistsInWishlist(product)){
-                window.alert("Product added to cart!");
+        if (user !== null){
+            if (productExistsInCart(product)){
+                removeFromCart(product);
             }
-            addToCart(product);
-        }        
+            else{
+                if (productExistsInWishlist(product)){
+                    window.alert("Product added to cart!");
+                }
+                addToCart(product);
+            }
+        }  
+        else{
+            toast.warn("You're not logged in. Please log in to add this product to your cart.")
+        }      
     };
 
     const handleProductInWishlist = () => {
-        if (productExistsInWishlist(product)){
-            removeFromWishlist(product);
-        }
+        if (user !== null){
+            if (productExistsInWishlist(product)){
+                removeFromWishlist(product);
+            }
+            else{
+                addToWishlist(product);
+            } 
+        }   
         else{
-            addToWishlist(product);
-        }        
+            toast.warn("You're not logged in. Please log in to add this product to your wishlist.")
+        }    
     };
 
     return (

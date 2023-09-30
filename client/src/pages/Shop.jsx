@@ -2,7 +2,7 @@ import React from "react";
 import ProductList from "../components/ProductList";
 import {useState, useEffect, useRef} from "react";
 
-function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist}) {
+function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addToWishlist, removeFromWishlist, productExistsInWishlist, user}) {
     const [category, setCategory] = useState('all-products');
     const [pages, setPages] = useState([]);
     const [pageNum, setPageNum] = useState(0);
@@ -72,7 +72,7 @@ function Shop({allProducts, addToCart, removeFromCart, productExistsInCart, addT
                         <span><i className="bx bx-chevron-down"></i></span>
                     </form>
                 </div>
-                {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist}/>}
+                {productsOnPage && <ProductList productsOnPage={productsOnPage} addToCart={addToCart} removeFromCart={removeFromCart} productExistsInCart={productExistsInCart} addToWishlist={addToWishlist} removeFromWishlist={removeFromWishlist} productExistsInWishlist={productExistsInWishlist} user={user}/>}
             </div>
             <div className="pagination">
                 <div className="container">
