@@ -80,3 +80,25 @@ npm run install-client
 ```bash
 npm run start-client
 ```
+## 🏃 Even Quicker Start - using Docker
+If you have Docker installed on your machine:
+1. Open the terminal and clone the repository.
+
+```bash
+git clone https://github.com/podgaietska/Ecommerce-Fullstack-App.git
+```
+2. Navigate to the project source root.
+
+```bash
+cd Ecommerce-Fullstack-App/
+```
+3. Run the following command in your terminal:
+
+```bash
+docker-compose up
+```
+4. Open your browser and navigate to
+
+```bash
+localhost:3000
+```
